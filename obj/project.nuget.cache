@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "ulZRTXgP1DapHBk75wJnB85tbvc6dBxmNK4eVA66hGIA+GiHl0uk38fGYo2eetQlY0eYeWEVL1miO1NE0SHHaw==",
+  "dgSpecHash": "RNmRQXiIy67wdkCe0L3VdGBdJGKyqROUI3GbttAli+oTR+HJl11izly4dW0XiZgmWH/3/2FGfWiEC4iuX9fOqw==",
   "success": true,
   "projectFilePath": "C:\\Users\\wonmo\\source\\repos\\Scalizer\\Scalizer\\Scalizer.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\wonmo\\.nuget\\packages\\system.codedom\\6.0.0\\system.codedom.6.0.0.nupkg.sha512",
-    "C:\\Users\\wonmo\\.nuget\\packages\\system.management\\6.0.0\\system.management.6.0.0.nupkg.sha512"
+    "C:\\Users\\wonmo\\.nuget\\packages\\system.management\\6.0.0\\system.management.6.0.0.nupkg.sha512",
+    "C:\\Users\\wonmo\\.nuget\\packages\\windowsdisplayapi\\1.3.0.13\\windowsdisplayapi.1.3.0.13.nupkg.sha512"
   ],
   "logs": []
 }

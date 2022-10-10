@@ -25,3 +25,4 @@ C:\Users\wonmo\source\repos\Scalizer\Scalizer\obj\Debug\net6.0-windows\CustomWin
 C:\Users\wonmo\source\repos\Scalizer\Scalizer\bin\Debug\net6.0-windows\System.Management.dll
 C:\Users\wonmo\source\repos\Scalizer\Scalizer\bin\Debug\net6.0-windows\runtimes\win\lib\net6.0\System.Management.dll
 C:\Users\wonmo\source\repos\Scalizer\Scalizer\obj\Debug\net6.0-windows\Scalizer.csproj.CopyComplete
+C:\Users\wonmo\source\repos\Scalizer\Scalizer\bin\Debug\net6.0-windows\WindowsDisplayAPI.dll

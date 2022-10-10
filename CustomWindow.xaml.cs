@@ -12,6 +12,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Xml.Linq;
+using WindowsDisplayAPI.DisplayConfig;
 
 namespace Scalizer
 {
@@ -44,24 +46,32 @@ namespace Scalizer
 
         public static List<string> Retrieve_Display_Info()
         {
-            SelectQuery q = new SelectQuery("SELECT Name, DeviceID, Description FROM Win32_DesktopMonitor");
-
             List<string> strings = new List<string>();
 
-            using (ManagementObjectSearcher mos = new ManagementObjectSearcher(q))
+            foreach (PathInfo pi in PathInfo.GetActivePaths())
             {
-                foreach (ManagementObject mo in mos.Get())
-                {
-                    string currentValue = String.Format("{0}, {1}, {2}",
-                        mo.Properties["Name"].Value.ToString(),
-                        mo.Properties["DeviceID"].Value.ToString(),
-                        mo.Properties["Description"].Value.ToString());
+                if (!pi.TargetsInfo[0].DisplayTarget.IsAvailable) continue;
 
-                    strings.Add(currentValue);
-                }
+                string currentValue = String.Format("{0}",
+                        string.IsNullOrEmpty(pi.TargetsInfo[0].DisplayTarget.FriendlyName) ? "Generic PnP Monitor" : pi.TargetsInfo[0].DisplayTarget.FriendlyName
+                        // , pi.DisplaySource.DisplayName,
+                        // pi.TargetsInfo[0].DisplayTarget.DevicePath
+                        );
+
+                strings.Add(currentValue);
             }
 
             return strings;
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

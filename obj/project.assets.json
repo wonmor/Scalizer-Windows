@@ -42,6 +42,19 @@
             "rid": "win"
           }
         }
+      },
+      "WindowsDisplayAPI/1.3.0.13": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/WindowsDisplayAPI.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/WindowsDisplayAPI.dll": {
+            "related": ".xml"
+          }
+        }
       }
     }
   },
@@ -96,11 +109,29 @@
         "system.management.nuspec",
         "useSharedDesignerContext.txt"
       ]
+    },
+    "WindowsDisplayAPI/1.3.0.13": {
+      "sha512": "YXQUdFeMgFrgBjjH84h03UWSV/V0uLdlxhu4yChmmfSc2HN1yXLrc8aB/D2So9yrEQRSQKHg6TpLha0ciCPy+Q==",
+      "type": "package",
+      "path": "windowsdisplayapi/1.3.0.13",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "lib/net45/WindowsDisplayAPI.dll",
+        "lib/net45/WindowsDisplayAPI.xml",
+        "lib/netstandard2.0/WindowsDisplayAPI.dll",
+        "lib/netstandard2.0/WindowsDisplayAPI.xml",
+        "readme.txt",
+        "windowsdisplayapi.1.3.0.13.nupkg.sha512",
+        "windowsdisplayapi.nuspec"
+      ]
     }
   },
   "projectFileDependencyGroups": {
     "net6.0-windows7.0": [
-      "System.Management >= 6.0.0"
+      "System.Management >= 6.0.0",
+      "WindowsDisplayAPI >= 1.3.0.13"
     ]
   },
   "packageFolders": {
@@ -151,6 +182,10 @@
           "System.Management": {
             "target": "Package",
             "version": "[6.0.0, )"
+          },
+          "WindowsDisplayAPI": {
+            "target": "Package",
+            "version": "[1.3.0.13, )"
           }
         },
         "imports": [

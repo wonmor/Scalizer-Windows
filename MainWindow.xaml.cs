@@ -65,8 +65,8 @@ namespace Scalizer
         {
             Change_Click(sender, e);
         }
-
-        private static string Set_Startup(Startup_Type startup_Type)
+         
+        private string Set_Startup(Startup_Type startup_Type)
         {
             try
             {
@@ -86,9 +86,9 @@ namespace Scalizer
                         return "Successfully disabled!";
 
                     case Startup_Type.Get:
-                        bool keyDoesntExist = key!.GetValue(curAssembly.GetName().Name!) == null;
+                        bool keyExists = key.GetValue(curAssembly.GetName().Name) == null;
 
-                        if (keyDoesntExist) { return "Key not found!"; } else { return "Key found!";  }
+                        if (keyExists) { return "Key found!"; } else { return "Key not found!"; }
 
                     default:
                         return "Specify a startup behaviour...";
@@ -130,6 +130,16 @@ namespace Scalizer
                 1);
 
             return new double[] { formattedText.Width, formattedText.Height };
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void CheckBox_Checked_1(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

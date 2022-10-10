@@ -8,9 +8,12 @@
         Title="MainWindow" Height="450" Width="800">
 
     <Grid>
-        <Label x:Name="titleText" Content="Welcome to Scalizer." Style="{StaticResource 3270}" HorizontalAlignment="Center" Height="37" Margin="0,175,0,0" VerticalAlignment="Top" Width="230" FontSize="24" />
-        <CheckBox x:Name="isOpenStartUp" Content="Run on Windows Startup" HorizontalAlignment="Center" Height="22" Margin="0,217,0,0" VerticalAlignment="Top" Width="162" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" IsChecked="False"/>
-        <Button x:Name="customButton" Content="Customize Behaviour" HorizontalAlignment="Center" Height="24"  Margin="0,217,0,100" VerticalAlignment="Bottom" Width="122" Click="Button_Click"/>
-        <Label x:Name="statusText" HorizontalAlignment="Center" Height="25" Margin="0,257,0,0" VerticalAlignment="Top" Width="122"/>
+        <Label x:Name="titleText" Content="Welcome to Scalizer." Style="{StaticResource 3270}" HorizontalAlignment="Center" Height="37" Margin="0,110,0,0" VerticalAlignment="Top" Width="232" FontSize="24" />
+        <CheckBox x:Name="isOpenStartUp" Content="Run on Windows Startup" HorizontalAlignment="Center" Height="22" Margin="0,152,0,0" VerticalAlignment="Top" Width="162" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" IsChecked="False"/>
+        <Button x:Name="customButton" Content="Create New Profile" HorizontalAlignment="Center" Height="24"  Margin="0,362,0,0" VerticalAlignment="Top" Width="122" Click="Button_Click"/>
+        <Label x:Name="statusText" HorizontalAlignment="Center" Height="25" Margin="0,192,0,0" VerticalAlignment="Top" Width="122"/>
+        <ComboBox HorizontalAlignment="Center" Height="21" Margin="0,269,0,0" VerticalAlignment="Top" Width="122" RenderTransformOrigin="0.606,-0.445"/>
+        <Label Content="Active Profile" HorizontalAlignment="Center" Height="28" Margin="0,241,0,0" VerticalAlignment="Top" Width="88"/>
+        <CheckBox Content="isEnabled" HorizontalAlignment="Center" Height="16" Margin="0,295,0,0" VerticalAlignment="Top" Width="80" Checked="CheckBox_Checked_1"/>
     </Grid>
 </Window>
