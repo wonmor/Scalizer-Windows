@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "ulZRTXgP1DapHBk75wJnB85tbvc6dBxmNK4eVA66hGIA+GiHl0uk38fGYo2eetQlY0eYeWEVL1miO1NE0SHHaw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\wonmo\\source\\repos\\Scalizer\\Scalizer\\Scalizer.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\wonmo\\.nuget\\packages\\system.codedom\\6.0.0\\system.codedom.6.0.0.nupkg.sha512",
+    "C:\\Users\\wonmo\\.nuget\\packages\\system.management\\6.0.0\\system.management.6.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

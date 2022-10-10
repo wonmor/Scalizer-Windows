@@ -1,0 +1,16 @@
+﻿<Window x:Class="Scalizer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Scalizer"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+
+    <Grid>
+        <Label x:Name="titleText" Content="Welcome to Scalizer." Style="{StaticResource 3270}" HorizontalAlignment="Center" Height="37" Margin="0,175,0,0" VerticalAlignment="Top" Width="230" FontSize="24" />
+        <CheckBox x:Name="isOpenStartUp" Content="Run on Windows Startup" HorizontalAlignment="Center" Height="22" Margin="0,217,0,0" VerticalAlignment="Top" Width="162" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" IsChecked="False"/>
+        <Button x:Name="customButton" Content="Customize Behaviour" HorizontalAlignment="Center" Height="24"  Margin="0,217,0,100" VerticalAlignment="Bottom" Width="122" Click="Button_Click"/>
+        <Label x:Name="statusText" HorizontalAlignment="Center" Height="25" Margin="0,257,0,0" VerticalAlignment="Top" Width="122"/>
+    </Grid>
+</Window>
