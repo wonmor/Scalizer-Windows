@@ -101,6 +101,7 @@ namespace Scalizer
                 dpiSetting = textBox?.Text.Trim()
             };
 
+            // A guard clause that makes sure that the profile name has been entered...
             if (profileName.Text.Trim() == "") return;
 
             File.WriteAllText(String.Format(@"{0}@{1}.json", profileName.Text.Trim().Replace(" ", "_"), monitorName.Text), JsonConvert.SerializeObject(displayConfig));
