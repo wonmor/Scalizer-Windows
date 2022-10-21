@@ -10,14 +10,14 @@
     <Grid>
         <Button x:Name="backButton" Content="Back" HorizontalAlignment="Left" Height="28" Margin="35,29,0,0" VerticalAlignment="Top" Width="59" Click="Button_Click"/>
         <Label Content="Welcome to Scalizer." HorizontalAlignment="Left" Height="28" Margin="114,29,0,0" VerticalAlignment="Top" Width="138"/>
-        <Grid Margin="75,185,75,185">
+        <Grid Margin="75,185,64,185">
             <Label Content="if" HorizontalAlignment="Left" Height="37" Margin="6,12,0,0" VerticalAlignment="Top" Width="26" FontSize="20"/>
             <ComboBox x:Name="monitorName" HorizontalAlignment="Left" Margin="32,19,0,0" VerticalAlignment="Top" Width="120" SelectedIndex="0"/>
             <Label Content=".isDetected()=&gt; { changeDPIScaleTo " HorizontalAlignment="Left" Height="54" Margin="152,10,0,0" VerticalAlignment="Top" Width="368" FontSize="20"/>
-            <TextBox HorizontalAlignment="Left" Margin="483,19,0,0" VerticalAlignment="Top" Width="120" Height="22"/>
+            <TextBox PreviewTextInput="TextBox_PreviewTextInput" TextChanged="TextBox_TextChanged" HorizontalAlignment="Left" Margin="483,19,0,0" VerticalAlignment="Top" Width="120" Height="22"/>
             <Label Content="% }" HorizontalAlignment="Left" Height="39" Margin="608,11,0,0" VerticalAlignment="Top" Width="42" FontSize="20"/>
         </Grid>
-        <TextBox HorizontalAlignment="Left" Margin="319,132,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="268" Height="30" TextChanged="TextBox_TextChanged"/>
+        <TextBox x:Name="profileName" HorizontalAlignment="Left" Margin="319,132,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="268" Height="30" />
         <Label Content="Set Profile Name to..." HorizontalAlignment="Left" Height="35" Margin="114,127,0,0" VerticalAlignment="Top" Width="200" FontSize="20"/>
         <Button Content="Save" HorizontalAlignment="Left" Height="28" Margin="682,29,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_1"/>
     </Grid>

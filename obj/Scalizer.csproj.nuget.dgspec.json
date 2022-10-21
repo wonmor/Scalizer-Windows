@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\wonmo\\source\\repos\\Scalizer\\Scalizer\\Scalizer.csproj": {}
+    "C:\\Users\\wonmo\\OneDrive\\Documents\\GitHub\\Scalizer\\Scalizer.csproj": {}
   },
   "projects": {
-    "C:\\Users\\wonmo\\source\\repos\\Scalizer\\Scalizer\\Scalizer.csproj": {
+    "C:\\Users\\wonmo\\OneDrive\\Documents\\GitHub\\Scalizer\\Scalizer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\wonmo\\source\\repos\\Scalizer\\Scalizer\\Scalizer.csproj",
+        "projectUniqueName": "C:\\Users\\wonmo\\OneDrive\\Documents\\GitHub\\Scalizer\\Scalizer.csproj",
         "projectName": "Scalizer",
-        "projectPath": "C:\\Users\\wonmo\\source\\repos\\Scalizer\\Scalizer\\Scalizer.csproj",
+        "projectPath": "C:\\Users\\wonmo\\OneDrive\\Documents\\GitHub\\Scalizer\\Scalizer.csproj",
         "packagesPath": "C:\\Users\\wonmo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\wonmo\\source\\repos\\Scalizer\\Scalizer\\obj\\",
+        "outputPath": "C:\\Users\\wonmo\\OneDrive\\Documents\\GitHub\\Scalizer\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -45,6 +45,10 @@
         "net6.0-windows7.0": {
           "targetAlias": "net6.0-windows",
           "dependencies": {
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.1, )"
+            },
             "System.Management": {
               "target": "Package",
               "version": "[6.0.0, )"
@@ -73,7 +77,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
         }
       }
     }
