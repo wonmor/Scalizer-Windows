@@ -24,7 +24,11 @@ using Newtonsoft.Json;
 namespace Scalizer
 {
     /// <summary>
-    /// Interaction logic for Window1.xaml
+    /// This is a business logic that retrieves the display information,
+    /// parses it, and stores them in the JSON objects.
+    /// 
+    /// SCALIZER: ONE AND ONLY CUSTOM SCALING SOFTWARE FOR WINDOWS 10 AND 11
+    /// An Open-source Project by John Seong. Served under the Apache License.
     /// </summary>
     
     internal class DisplayConfig
