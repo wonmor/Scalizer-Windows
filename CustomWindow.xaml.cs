@@ -50,6 +50,8 @@ namespace Scalizer
     {
         private List<string>? displayInfoList;
 
+        private List<string> filePaths = new List<string>();
+
         public CustomWindow()
         {
             InitializeComponent();
@@ -63,7 +65,8 @@ namespace Scalizer
         {
             Button? b = sender as Button;
 
-            if (b!.Name == "backButton") Change_Window(sender, e);
+            if (b!.Name == "backButton") { Delete_Display_Config(); Change_Window(sender, e); }
+            if (b!.Name == "saveButton") { Save_Display_Config(); Change_Window(sender, e); }
         }
         private void Change_Window(object sender, RoutedEventArgs e)
         {
@@ -92,19 +95,37 @@ namespace Scalizer
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            TextBox? textBox = sender as TextBox;
+            Save_Display_Config();
+        }
 
+        private void Save_Display_Config()
+        {
             DisplayConfig displayConfig = new DisplayConfig
             {
                 displayIndex = displayInfoList?.IndexOf(monitorName.Text.Trim()) + 1,
                 displayName = monitorName.Text.Trim(),
-                dpiSetting = textBox?.Text.Trim()
+                dpiSetting = dpiValue.Text.Trim()
             };
 
             // A guard clause that makes sure that the profile name has been entered...
             if (profileName.Text.Trim() == "") return;
 
-            File.WriteAllText(String.Format(@"{0}@{1}.json", profileName.Text.Trim().Replace(" ", "_"), monitorName.Text), JsonConvert.SerializeObject(displayConfig));
+            string path = String.Format(@"{0}@{1}.json", profileName.Text.Trim().Replace(" ", "_"), monitorName.Text);
+
+            filePaths.Add(path);
+
+            File.WriteAllText(path, JsonConvert.SerializeObject(displayConfig));
+        }
+
+        private void Delete_Display_Config()
+        {
+            // A Null-checking Guard Clause...
+            if (filePaths == null) return;
+
+            foreach (string path in filePaths)
+            {
+                File.Delete(path);
+            }
         }
 
         // Only allows numbers to be entered in the DPI textbox...
@@ -115,12 +136,5 @@ namespace Scalizer
                 e.Handled = true;
             }
         }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-
     }
 }
