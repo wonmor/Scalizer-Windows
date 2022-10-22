@@ -7,5 +7,6 @@
 
 ## Dependencies
 - Windows Display API
+- Newtonsoft Json.NET
 
 
