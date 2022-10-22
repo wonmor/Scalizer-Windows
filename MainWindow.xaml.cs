@@ -52,16 +52,21 @@ namespace Scalizer
 
             isOpenStartUp.IsChecked = msg.Contains("not");
 
+            // Retrieve all the JSON files present in the root EXE file directory...
             var jsonPaths = Directory.EnumerateFiles(@".\", "*", SearchOption.AllDirectories)
                .Where(s => s.EndsWith(".json") && s.Count(c => c == '.') == 2)
                .ToList();
 
-            for (int i = 0; i < jsonPaths.Count; i++)
+            // Only if jsonPaths list is NOT empty...
+            if (jsonPaths.Any())
             {
-                jsonPaths[i] = jsonPaths[i].Replace(@".\", @"");
-            }
+                for (int i = 0; i < jsonPaths.Count; i++)
+                {
+                    jsonPaths[i] = jsonPaths[i].Replace(@".\", @"");
+                }
 
-            selectedProfile.ItemsSource = jsonPaths; // Edit this part...
+                selectedProfile.ItemsSource = jsonPaths; // Edit this part...
+            }
         }
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e)

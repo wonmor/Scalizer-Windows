@@ -33,9 +33,10 @@ namespace Scalizer
     
     internal class DisplayConfig
     {
+        public string? profileName { get; set; }
         public int? displayIndex { get; set; }
-        public String? displayName { get; set; }
-        public String? dpiSetting { get; set; }
+        public string? displayName { get; set; }
+        public string? dpiSetting { get; set; }
     }
 
     static class Extensions
@@ -100,17 +101,20 @@ namespace Scalizer
 
         private void Save_Display_Config()
         {
+            // A guard clause that makes sure that the profile name has been entered...
+            if (profileName.Text.Trim() == "") return;
+
+            string cleanedProfileName = profileName.Text.Trim().Replace(" ", "_");
+
             DisplayConfig displayConfig = new DisplayConfig
             {
+                profileName = cleanedProfileName,
                 displayIndex = displayInfoList?.IndexOf(monitorName.Text.Trim()) + 1,
                 displayName = monitorName.Text.Trim(),
                 dpiSetting = dpiValue.Text.Trim()
             };
 
-            // A guard clause that makes sure that the profile name has been entered...
-            if (profileName.Text.Trim() == "") return;
-
-            string path = String.Format(@"{0}@{1}.json", profileName.Text.Trim().Replace(" ", "_"), monitorName.Text);
+            string path = String.Format(@"{0}@{1}.json", cleanedProfileName, monitorName.Text);
 
             filePaths.Add(path);
 

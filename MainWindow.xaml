@@ -10,10 +10,11 @@
     <Grid>
         <Label x:Name="titleText" Content="Welcome to Scalizer." Style="{StaticResource 3270}" HorizontalAlignment="Center" Height="37" Margin="0,110,0,0" VerticalAlignment="Top" Width="232" FontSize="24" />
         <CheckBox x:Name="isOpenStartUp" Content="Run on Windows Startup" HorizontalAlignment="Center" Height="22" Margin="0,152,0,0" VerticalAlignment="Top" Width="162" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" IsChecked="False"/>
-        <Button x:Name="customButton" Content="Create New Profile" HorizontalAlignment="Center" Height="24"  Margin="0,362,0,0" VerticalAlignment="Top" Width="122" Click="Button_Click"/>
+        <Button x:Name="customButton" Content="Create New Profile" HorizontalAlignment="Center" Height="24"  Margin="0,330,0,0" VerticalAlignment="Top" Width="122" Click="Button_Click"/>
         <Label x:Name="statusText" HorizontalAlignment="Center" Height="25" Margin="0,192,0,0" VerticalAlignment="Top" Width="122"/>
-        <ComboBox x:Name="selectedProfile" HorizontalAlignment="Center" Height="21" Margin="0,269,0,0" VerticalAlignment="Top" Width="122" SelectedIndex="0" RenderTransformOrigin="0.606,-0.445"/>
-        <Label Content="Selected Profile" HorizontalAlignment="Center" Height="28" Margin="0,241,0,0" VerticalAlignment="Top" Width="94"/>
-        <CheckBox Content="Enabled" HorizontalAlignment="Center" Height="16" Margin="0,295,0,0" VerticalAlignment="Top" Width="80" Checked="Activate_Selected_Profile"/>
+        <ComboBox x:Name="selectedProfile" HorizontalAlignment="Center" Height="21" Margin="0,238,0,0" VerticalAlignment="Top" Width="122" SelectedIndex="0" RenderTransformOrigin="0.606,-0.445"/>
+        <Label Content="Selected Profile" HorizontalAlignment="Center" Height="28" Margin="0,210,0,0" VerticalAlignment="Top" Width="94"/>
+        <CheckBox Content="Enabled" HorizontalAlignment="Center" Height="16" Margin="0,264,0,0" VerticalAlignment="Top" Width="80" Checked="Activate_Selected_Profile"/>
+        <Button x:Name="editButton" Content="Edit Profile" HorizontalAlignment="Center" Height="24"  Margin="0,368,0,0" VerticalAlignment="Top" Width="122" Click="Button_Click"/>
     </Grid>
 </Window>
