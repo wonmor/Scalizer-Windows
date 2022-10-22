@@ -1,10 +1,13 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -19,9 +22,15 @@ using System.Windows.Shapes;
 namespace Scalizer
 {
     /// <summary>
-    /// This is the class of the main menu.
+    /// Loads the profile and automatically sets up the startup behaviour,
+    /// which is to match the current display name with the DPI value recorded on the saved JSON objects.
+    /// Then, the program automatically scales the desktop UI to improve Windows 10/11 user experience on high res. displays,
+    /// similar to those found on macOS.
+    /// 
+    /// SCALIZER: ONE AND ONLY CUSTOM SCALING SOFTWARE FOR WINDOWS 10 AND 11
+    /// An Open-source Project by John Seong. Served under the Apache License.
     /// </summary>
- 
+
     public partial class MainWindow : Window
     {
         private enum Startup_Type
@@ -31,6 +40,10 @@ namespace Scalizer
             Get
         }
 
+        private List<string> profileNames = new List<string>();
+
+        private List<DisplayConfig> displayProfileList = new List<DisplayConfig>();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -38,6 +51,17 @@ namespace Scalizer
             String msg = Set_Startup(Startup_Type.Get);
 
             isOpenStartUp.IsChecked = msg.Contains("not");
+
+            var jsonPaths = Directory.EnumerateFiles(@".\", "*", SearchOption.AllDirectories)
+               .Where(s => s.EndsWith(".json") && s.Count(c => c == '.') == 2)
+               .ToList();
+
+            for (int i = 0; i < jsonPaths.Count; i++)
+            {
+                jsonPaths[i] = jsonPaths[i].Replace(@".\", @"");
+            }
+
+            selectedProfile.ItemsSource = jsonPaths; // Edit this part...
         }
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
@@ -66,6 +90,7 @@ namespace Scalizer
             Change_Click(sender, e);
         }
          
+        // Adds the automatic launch on Windows startup command on the registry...
         private string Set_Startup(Startup_Type startup_Type)
         {
             try
@@ -132,12 +157,7 @@ namespace Scalizer
             return new double[] { formattedText.Width, formattedText.Height };
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void CheckBox_Checked_1(object sender, RoutedEventArgs e)
+        private void Activate_Selected_Profile(object sender, RoutedEventArgs e)
         {
 
         }

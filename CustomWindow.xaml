@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Scalizer"
         mc:Ignorable="d"
-        Title="CustomWindow" Height="450" Width="800">
+        Title="Scalizer" Height="450" Width="800">
 
     <Grid>
         <Button x:Name="backButton" Content="Delete" HorizontalAlignment="Left" Height="28" Margin="35,29,0,0" VerticalAlignment="Top" Width="59" Click="Button_Click"/>
