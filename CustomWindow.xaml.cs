@@ -65,7 +65,7 @@ namespace Scalizer
         {
             Button? b = sender as Button;
 
-            if (b!.Name == "backButton") { Delete_Display_Config(); Change_Window(sender, e); }
+            if (b!.Name == "backButton") { Save_Display_Config(); Delete_Display_Config(); Change_Window(sender, e); }
             if (b!.Name == "saveButton") { Save_Display_Config(); Change_Window(sender, e); }
         }
         private void Change_Window(object sender, RoutedEventArgs e)
