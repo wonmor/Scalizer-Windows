@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -44,6 +45,8 @@ namespace Scalizer
 
         private List<DisplayConfig> displayProfileList = new List<DisplayConfig>();
 
+        private List<string> jsonPaths;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -53,7 +56,7 @@ namespace Scalizer
             isOpenStartUp.IsChecked = msg.Contains("not");
 
             // Retrieve all the JSON files present in the root EXE file directory...
-            var jsonPaths = Directory.EnumerateFiles(@".\", "*", SearchOption.AllDirectories)
+            jsonPaths = Directory.EnumerateFiles(@".\", "*", SearchOption.AllDirectories)
                .Where(s => s.EndsWith(".json") && s.Count(c => c == '.') == 2)
                .ToList();
 
@@ -62,10 +65,17 @@ namespace Scalizer
             {
                 for (int i = 0; i < jsonPaths.Count; i++)
                 {
-                    jsonPaths[i] = jsonPaths[i].Replace(@".\", @"");
+                    string[] parsedFileName = jsonPaths[i].Replace(@".\", @"").Split("@");
+                    string currentProfileName = parsedFileName[0];
+
+                    // If the config. with same profile doesn't exist in the profileNames array...
+                    if (!profileNames.Any(x => x == currentProfileName))
+                    {
+                        profileNames.Add(currentProfileName);
+                    }
                 }
 
-                selectedProfile.ItemsSource = jsonPaths; // Edit this part...
+                selectedProfile.ItemsSource = profileNames;
             }
         }
 
@@ -92,7 +102,9 @@ namespace Scalizer
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Change_Click(sender, e);
+            Button? b = sender as Button;
+
+            Change_Click(sender, e, b!.Name);
         }
          
         // Adds the automatic launch on Windows startup command on the registry...
@@ -130,10 +142,18 @@ namespace Scalizer
             }
         }
 
-        private void Change_Click(object sender, RoutedEventArgs e)
+        private void Change_Click(object sender, RoutedEventArgs e, string buttonBehaviour)
         {
-            CustomWindow customWindow = new CustomWindow();
+            CustomWindow customWindow = new CustomWindow(buttonBehaviour);
+
+            if (buttonBehaviour == "editButton")
+            {
+                customWindow.setSelectedProfile(profileNames[selectedProfile.SelectedIndex]);
+                customWindow.setJsonPaths(jsonPaths);
+            }
+
             Visibility = Visibility.Hidden;
+
             customWindow.Show();
         }
 

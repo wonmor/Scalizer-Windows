@@ -11,11 +11,15 @@
         <Button x:Name="backButton" Content="Delete" HorizontalAlignment="Left" Height="28" Margin="35,29,0,0" VerticalAlignment="Top" Width="59" Click="Button_Click"/>
         <Label Content="Welcome to Scalizer." HorizontalAlignment="Left" Height="28" Margin="114,29,0,0" VerticalAlignment="Top" Width="138"/>
         <Grid Margin="75,185,64,185">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="299*"/>
+                <ColumnDefinition Width="362*"/>
+            </Grid.ColumnDefinitions>
             <Label Content="if" HorizontalAlignment="Left" Height="37" Margin="6,12,0,0" VerticalAlignment="Top" Width="26" FontSize="20"/>
-            <ComboBox x:Name="monitorName" HorizontalAlignment="Left" Margin="32,19,0,0" VerticalAlignment="Top" Width="120" SelectedIndex="0"/>
-            <Label Content=".isDetected()=&gt; { changeDPIScaleTo " HorizontalAlignment="Left" Height="54" Margin="152,10,0,0" VerticalAlignment="Top" Width="368" FontSize="20"/>
-            <TextBox x:Name="dpiValue" PreviewTextInput="TextBox_PreviewTextInput" TextChanged="TextBox_TextChanged" HorizontalAlignment="Left" Margin="483,19,0,0" VerticalAlignment="Top" Width="120" Height="22"/>
-            <Label Content="% }" HorizontalAlignment="Left" Height="39" Margin="608,11,0,0" VerticalAlignment="Top" Width="42" FontSize="20"/>
+            <ComboBox x:Name="monitorName" SelectionChanged="ComboBox_SelectionChanged" DropDownClosed="ComboBox_DropDownClosed" HorizontalAlignment="Left" Margin="32,19,0,0" VerticalAlignment="Top" Width="120" SelectedIndex="0"/>
+            <Label Content=".isDetected()=&gt; { changeDPIScaleTo " HorizontalAlignment="Left" Height="54" Margin="152,10,0,0" VerticalAlignment="Top" Width="368" FontSize="20" Grid.ColumnSpan="2"/>
+            <TextBox x:Name="dpiValue" PreviewTextInput="TextBox_PreviewTextInput" TextChanged="TextBox_TextChanged" HorizontalAlignment="Left" Margin="184,19,0,0" VerticalAlignment="Top" Width="120" Height="22" Grid.Column="1"/>
+            <Label Content="% }" HorizontalAlignment="Left" Height="39" Margin="309,11,0,0" VerticalAlignment="Top" Width="42" FontSize="20" Grid.Column="1"/>
         </Grid>
         <TextBox x:Name="profileName" HorizontalAlignment="Left" Margin="319,132,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="268" Height="30" />
         <Label Content="Set Profile Name to..." HorizontalAlignment="Left" Height="35" Margin="114,127,0,0" VerticalAlignment="Top" Width="200" FontSize="20"/>

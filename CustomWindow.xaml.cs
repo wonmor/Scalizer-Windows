@@ -20,6 +20,7 @@ using System.Text.Json.Serialization;
 using WindowsDisplayAPI.DisplayConfig;
 using System.Configuration;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Scalizer
 {
@@ -49,25 +50,59 @@ namespace Scalizer
 
     public partial class CustomWindow : Window
     {
-        private List<string>? displayInfoList;
+        private List<string>? displayInfoList, jsonPaths;
 
         private List<string> filePaths = new List<string>();
 
-        public CustomWindow()
+        private List<string> relevantJsonPaths = new List<string>();
+        private List<string> relevantDisplayNames = new List<string>();
+
+        private string? buttonBehaviour, selectedProfileName;
+
+        public CustomWindow(string buttonBehaviour)
         {
             InitializeComponent();
 
             Retrieve_Display_Info();
 
+            profileName.IsReadOnly = false;
             monitorName.ItemsSource = displayInfoList;
+
+            this.buttonBehaviour = buttonBehaviour;
+
+            if (buttonBehaviour == "editButton")
+            {
+                backButton.Content = "Back";
+
+            } else if (buttonBehaviour == "customButton")
+            {
+                backButton.Content = "Delete";
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Button? b = sender as Button;
 
-            if (b!.Name == "backButton") { Save_Display_Config(); Delete_Display_Config(); Change_Window(sender, e); }
-            if (b!.Name == "saveButton") { Save_Display_Config(); Change_Window(sender, e); }
+            if (b!.Name == "backButton") {
+                if (buttonBehaviour == "customButton")
+                {
+                    Save_Display_Config();
+                    Delete_Display_Config();
+                }
+
+                Change_Window(sender, e);
+
+            } else if (b!.Name == "saveButton") {
+                // If the entered dpiValue is divisible by 5 and is between 80 and 300...
+                int dpi = int.Parse(dpiValue.Text);
+
+                if ((dpi % 5 == 0) && (dpi >= 80) && (dpi <= 300))
+                {
+                    Save_Display_Config();
+                    Change_Window(sender, e);
+                }
+            }
         }
         private void Change_Window(object sender, RoutedEventArgs e)
         {
@@ -75,6 +110,71 @@ namespace Scalizer
             Visibility = Visibility.Hidden;
 
             mainWindow.Show();
+        }
+
+        public void setSelectedProfile(string selectedProfileName)
+        {
+            this.selectedProfileName = selectedProfileName;
+
+            profileName.Text = selectedProfileName;
+            profileName.IsReadOnly = true;
+        }
+
+        public void setJsonPaths(List<string> jsonPaths)
+        {
+            this.jsonPaths = jsonPaths;
+
+            if (selectedProfileName == null) return;
+
+            foreach (string path in jsonPaths)
+            {
+                if (path.Contains(selectedProfileName))
+                {
+                    relevantJsonPaths.Add(path);
+
+                    string[] parsedFileName = path.Replace(@".\", @"").Split("@");
+
+                    relevantDisplayNames.Add(parsedFileName[1].Replace(".json", ""));
+                }
+            }
+
+            monitorName.ItemsSource = relevantDisplayNames;
+
+            // Default behaviour...
+            Parse_Json_File(relevantJsonPaths[0]);
+        }
+        
+        private bool handle = false;
+
+        private void ComboBox_DropDownClosed(object sender, EventArgs e)
+        {
+            if (handle) Handle();
+            handle = true;
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ComboBox? cmb = sender as ComboBox;
+            handle = !cmb!.IsDropDownOpen;
+            Handle();
+        }
+
+        private void Handle()
+        {
+            // Only execute while creating a new profile...
+            if (buttonBehaviour == "editButton")
+                Parse_Json_File(relevantJsonPaths[monitorName.SelectedIndex]);
+
+            Save_Display_Config();
+        }
+
+        private void Parse_Json_File(string path)
+        {
+            JObject jo = JObject.Parse(File.ReadAllText(path));
+
+            DisplayConfig currentDisplayConfig = JsonConvert.DeserializeObject<DisplayConfig>(jo.ToString())!;
+
+            dpiValue.Text = currentDisplayConfig.dpiSetting;
         }
 
         public void Retrieve_Display_Info()
@@ -96,13 +196,15 @@ namespace Scalizer
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            Save_Display_Config();
+            if (buttonBehaviour == "customButton")
+                Save_Display_Config();
         }
 
         private void Save_Display_Config()
         {
             // A guard clause that makes sure that the profile name has been entered...
             if (profileName.Text.Trim() == "") return;
+            if (monitorName.Text.Trim() == "") return;
 
             string cleanedProfileName = profileName.Text.Trim().Replace(" ", "_");
 
