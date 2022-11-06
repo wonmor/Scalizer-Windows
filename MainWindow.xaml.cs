@@ -86,6 +86,8 @@ namespace Scalizer
             // Only if jsonPaths list is NOT empty...
             if (jsonPaths.Any())
             {
+                editButton.Visibility = Visibility.Visible;
+
                 for (int i = 0; i < jsonPaths.Count; i++)
                 {
                     string[] parsedFileName = jsonPaths[i].Replace(@".\", @"").Split("@");
@@ -99,6 +101,9 @@ namespace Scalizer
                 }
 
                 selectedProfile.ItemsSource = profileNames;
+            } else
+            {
+                editButton.Visibility = Visibility.Hidden;
             }
         }
 
