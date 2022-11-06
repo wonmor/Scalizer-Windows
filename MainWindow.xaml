@@ -14,7 +14,7 @@
         <Label x:Name="statusText" HorizontalAlignment="Center" Height="25" Margin="0,192,0,0" VerticalAlignment="Top" Width="122"/>
         <ComboBox x:Name="selectedProfile" HorizontalAlignment="Center" Height="21" Margin="0,238,0,0" VerticalAlignment="Top" Width="122" SelectedIndex="0" RenderTransformOrigin="0.606,-0.445"/>
         <Label Content="Selected Profile" HorizontalAlignment="Center" Height="28" Margin="0,210,0,0" VerticalAlignment="Top" Width="94"/>
-        <CheckBox Content="Enabled" HorizontalAlignment="Center" Height="16" Margin="0,264,0,0" VerticalAlignment="Top" Width="80" Checked="Activate_Selected_Profile"/>
+        <CheckBox x:Name="isEnabled" Content="Enabled" HorizontalAlignment="Center" Height="16" Margin="0,264,0,0" VerticalAlignment="Top" Width="80" Checked="Activate_Selected_Profile" Unchecked="Deactivate_Selected_Profile"/>
         <Button x:Name="editButton" Content="Edit Profile" HorizontalAlignment="Center" Height="24"  Margin="0,368,0,0" VerticalAlignment="Top" Width="122" Click="Button_Click"/>
     </Grid>
 </Window>

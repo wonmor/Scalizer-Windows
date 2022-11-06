@@ -71,13 +71,18 @@ namespace Scalizer
 
             this.buttonBehaviour = buttonBehaviour;
 
-            if (buttonBehaviour == "editButton")
+            switch (this.buttonBehaviour)
             {
-                backButton.Content = "Back";
+                default:
+                case "editButton":
+                    backButton.Content = "Back";
+                    deleteButton.Visibility = Visibility.Visible;
+                    break;
 
-            } else if (buttonBehaviour == "customButton")
-            {
-                backButton.Content = "Delete";
+                case "customButton":
+                    backButton.Content = "Delete";
+                    deleteButton.Visibility = Visibility.Hidden;
+                    break;
             }
         }
 
@@ -85,26 +90,48 @@ namespace Scalizer
         {
             Button? b = sender as Button;
 
-            if (b!.Name == "backButton") {
-                if (buttonBehaviour == "customButton")
-                {
-                    Save_Display_Config();
-                    Delete_Display_Config();
-                }
+            string buttonName = b!.Name;
 
-                Change_Window(sender, e);
+            switch (buttonName)
+            {
+                default:
+                case "backButton":
+                    // Delete the profile...
+                    if (buttonBehaviour == "customButton")
+                    {
+                        Save_Display_Config();
+                        Delete_Display_Config();
+                    }
 
-            } else if (b!.Name == "saveButton") {
-                // If the entered dpiValue is divisible by 5 and is between 80 and 300...
-                int dpi = int.Parse(dpiValue.Text);
+                    /*
+                     * If the above condition is not met,
+                     * go back to menu without deleting the selected profile.
+                     * If not, do delete, and go back to the main menu.
+                     */
 
-                if ((dpi % 5 == 0) && (dpi >= 80) && (dpi <= 300))
-                {
-                    Save_Display_Config();
                     Change_Window(sender, e);
-                }
+                    break;
+
+                case "saveButton":
+                    // If the entered dpiValue is divisible by 5 and is between 80 and 300...
+                    int dpi = int.Parse(dpiValue.Text);
+
+                    if (dpi % 5 == 0 && dpi >= 80 && dpi <= 400)
+                    {
+                        Save_Display_Config();
+                        Change_Window(sender, e);
+                    }
+                    break;
+
+                case "deleteButton":
+                    // Completely delete the selected profile...
+                    Wipe_Display_Config();
+
+                    Change_Window(sender, e);
+                    break;
             }
         }
+
         private void Change_Window(object sender, RoutedEventArgs e)
         {
             MainWindow mainWindow = new MainWindow();
@@ -159,6 +186,7 @@ namespace Scalizer
         private void Handle()
         {
             if (buttonBehaviour == "editButton")
+            {
                 foreach (string path in relevantJsonPaths)
                 {
                     if (path.Contains(monitorName.SelectedItem.ToString()!))
@@ -166,6 +194,7 @@ namespace Scalizer
                         Parse_Json_File(path);
                     }
                 }
+            }
         }
 
         private void Parse_Json_File(string path)
@@ -194,12 +223,6 @@ namespace Scalizer
             displayInfoList = displays.Clone();
         }
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (buttonBehaviour == "customButton")
-                Save_Display_Config();
-        }
-
         private void Save_Display_Config()
         {
             // A guard clause that makes sure that the profile name has been entered...
@@ -223,12 +246,21 @@ namespace Scalizer
             File.WriteAllText(path, JsonConvert.SerializeObject(displayConfig));
         }
 
+        // TO DO: RECURSIVELY DELETE ALL THE DISPLAY FILES UNDER THE SAME PROFILE...
         private void Delete_Display_Config()
         {
             // A Null-checking Guard Clause...
             if (filePaths == null) return;
 
             foreach (string path in filePaths)
+            {
+                File.Delete(path);
+            }
+        }
+
+        private void Wipe_Display_Config()
+        {
+            foreach (string path in relevantJsonPaths)
             {
                 File.Delete(path);
             }

@@ -2,6 +2,7 @@
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
@@ -47,9 +48,19 @@ namespace Scalizer
 
         private List<string> jsonPaths;
 
+        private bool isExecute = false;
+
         public MainWindow()
         {
             InitializeComponent();
+
+            // Load from the saved settings...
+            isExecute = bool.Parse(System.Configuration.ConfigurationManager.AppSettings["isEnabled"]!);
+
+            if (isEnabled.IsChecked == true)
+            {
+
+            }
 
             String msg = Set_Startup(Startup_Type.Get);
 
@@ -106,7 +117,7 @@ namespace Scalizer
 
             Change_Click(sender, e, b!.Name);
         }
-         
+
         // Adds the automatic launch on Windows startup command on the registry...
         private string Set_Startup(Startup_Type startup_Type)
         {
@@ -184,7 +195,21 @@ namespace Scalizer
 
         private void Activate_Selected_Profile(object sender, RoutedEventArgs e)
         {
+            SetIsEnabled(true);
+        }
 
+        private void Deactivate_Selected_Profile(object sender, RoutedEventArgs e)
+        {
+            SetIsEnabled(false);
+        }
+
+        private void SetIsEnabled(bool value)
+        {
+            var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            config.AppSettings.Settings["isEnabled"].Value = value.ToString();
+            config.Save(ConfigurationSaveMode.Modified);
+
+            ConfigurationManager.RefreshSection("appSettings");
         }
     }
 }
