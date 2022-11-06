@@ -21,6 +21,7 @@ using WindowsDisplayAPI.DisplayConfig;
 using System.Configuration;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Diagnostics;
 
 namespace Scalizer
 {
@@ -146,26 +147,27 @@ namespace Scalizer
         
         private bool handle = false;
 
-        private void ComboBox_DropDownClosed(object sender, EventArgs e)
+        private void ComboBox_DropDownOpen(object sender, EventArgs e)
         {
-            if (handle) Handle();
-            handle = true;
+            Save_Display_Config();
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ComboBox? cmb = sender as ComboBox;
-            handle = !cmb!.IsDropDownOpen;
             Handle();
         }
 
         private void Handle()
         {
-            // Only execute while creating a new profile...
             if (buttonBehaviour == "editButton")
-                Parse_Json_File(relevantJsonPaths[monitorName.SelectedIndex]);
-
-            Save_Display_Config();
+                foreach (string path in relevantJsonPaths)
+                {
+                    if (path.Contains(monitorName.SelectedItem.ToString()!))
+                    {
+                        Parse_Json_File(path);
+                    }
+                }
         }
 
         private void Parse_Json_File(string path)
