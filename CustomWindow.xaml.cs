@@ -144,8 +144,6 @@ namespace Scalizer
             // Default behaviour...
             Parse_Json_File(relevantJsonPaths[0]);
         }
-        
-        private bool handle = false;
 
         private void ComboBox_DropDownOpen(object sender, EventArgs e)
         {
