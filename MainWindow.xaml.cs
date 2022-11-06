@@ -62,13 +62,16 @@ namespace Scalizer
             isExecute = bool.Parse(config.AppSettings.Settings["isEnabled"].Value);
 
             // Startup behaviour if and only if it is set to true...
-            if (isExecute)
+            if (isExecute == true)
             {
                 isEnabled.IsChecked = true;
 
                 // Execute a Terminal command...
                 // TerminalHelper.execute(@".\SetDpi.exe " + displayNumber + " " + displayScaling);
                 // TO DO: MAKE THE PROGRAM TO MOVE ASSETS FOLDER UNDER RESOURCES WHILE BUILDING FOR PROD...
+            } else
+            {
+                isEnabled.IsChecked = false;
             }
 
             String msg = Set_Startup(Startup_Type.Get);
