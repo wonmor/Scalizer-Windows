@@ -194,6 +194,7 @@ namespace Scalizer
             Handle();
         }
 
+        // This function only runs if and only if the selection of the dropdown menu has changed...
         private void Handle()
         {
             if (buttonBehaviour == "editButton")

@@ -50,16 +50,23 @@ namespace Scalizer
 
         private bool isExecute = false;
 
+        private int displayNumber, displayScaling;
+
         public MainWindow()
         {
             InitializeComponent();
 
             // Load from the saved settings...
-            isExecute = bool.Parse(System.Configuration.ConfigurationManager.AppSettings["isEnabled"]!);
+            var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            isExecute = bool.Parse(config.AppSettings.Settings["isEnabled"].Value);
 
-            if (isEnabled.IsChecked == true)
+            // Startup behaviour if and only if it is set to true...
+            if (isExecute)
             {
+                isEnabled.IsChecked = true;
 
+                // Execute a Terminal command...
+                // TerminalHelper.execute(@".\SetDpi.exe " + displayNumber + " " + displayScaling);
             }
 
             String msg = Set_Startup(Startup_Type.Get);
