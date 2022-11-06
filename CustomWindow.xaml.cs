@@ -124,7 +124,7 @@ namespace Scalizer
                     break;
 
                 case "deleteButton":
-                    // Completely delete the selected profile...
+                    // Completely delete the selected profile including all the displays associated with it...
                     Wipe_Display_Config();
 
                     Change_Window(sender, e);
@@ -169,17 +169,28 @@ namespace Scalizer
             monitorName.ItemsSource = relevantDisplayNames;
 
             // Default behaviour...
-            Parse_Json_File(relevantJsonPaths[0]);
+            Parse_Json_File(relevantJsonPaths[monitorName.SelectedIndex]);
         }
+
+        private void ComboBox_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Save_Display_Config();
+        }
+
+        private bool handle = false;
 
         private void ComboBox_DropDownOpen(object sender, EventArgs e)
         {
+            if (handle) Handle();
+            handle = true;
+
             Save_Display_Config();
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ComboBox? cmb = sender as ComboBox;
+            handle = !cmb!.IsDropDownOpen;
             Handle();
         }
 
@@ -246,7 +257,6 @@ namespace Scalizer
             File.WriteAllText(path, JsonConvert.SerializeObject(displayConfig));
         }
 
-        // TO DO: RECURSIVELY DELETE ALL THE DISPLAY FILES UNDER THE SAME PROFILE...
         private void Delete_Display_Config()
         {
             // A Null-checking Guard Clause...
@@ -258,6 +268,7 @@ namespace Scalizer
             }
         }
 
+        // RECURSIVELY DELETES ALL THE DISPLAY FILES UNDER THE SAME PROFILE...
         private void Wipe_Display_Config()
         {
             foreach (string path in relevantJsonPaths)
