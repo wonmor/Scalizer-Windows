@@ -50,6 +50,7 @@ namespace Scalizer
 
         private bool isExecute = false;
 
+        // TO DO: SYNCRONIZE THE TWO VARIABLES BELOW WITH THE OPENED SETTINGS... NEED TO NEWLY PARSE JSON FOR THIS...
         private int displayNumber, displayScaling;
 
         public MainWindow()
@@ -67,6 +68,7 @@ namespace Scalizer
 
                 // Execute a Terminal command...
                 // TerminalHelper.execute(@".\SetDpi.exe " + displayNumber + " " + displayScaling);
+                // TO DO: MAKE THE PROGRAM TO MOVE ASSETS FOLDER UNDER RESOURCES WHILE BUILDING FOR PROD...
             }
 
             String msg = Set_Startup(Startup_Type.Get);
