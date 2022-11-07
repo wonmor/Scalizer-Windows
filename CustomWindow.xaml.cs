@@ -201,9 +201,16 @@ namespace Scalizer
             {
                 foreach (string path in relevantJsonPaths)
                 {
-                    if (path.Contains(monitorName.SelectedItem.ToString()!))
+                    try
                     {
-                        Parse_Json_File(path);
+                        if (path.Contains(monitorName.SelectedItem.ToString()!))
+                        {
+                            Parse_Json_File(path);
+                        }
+
+                    } catch (NullReferenceException ex)
+                    { 
+                        MessageBox.Show(ex.Message);
                     }
                 }
             }
