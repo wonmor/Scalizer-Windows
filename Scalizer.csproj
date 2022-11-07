@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <Compile Remove="WinApi.cs" />
+	  <Resource Include="Assets\SetDpi.exe" />
   </ItemGroup>
 
   <ItemGroup>
