@@ -31,7 +31,6 @@ using System.Windows.Shapes;
  * 
  * BUG FIXES NEED TO BE MADE
  * 1. SAVE DROPDOWN BAR CURRENT PROFILE NAME LOCALLY (ONLY RUN IF THERE'S DETECTED JSON FILE IN THE APP FOLDER)
- * 2. WHEN TOGGLING DROPDOWN BAR, CHANGE DPI SCALE
  */
 
 namespace Scalizer
@@ -103,7 +102,12 @@ namespace Scalizer
                 editButton.Visibility = Visibility.Hidden;
             }
         }
-        
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Parse_Current_Profile();
+        }
+
         // Parse the JSON file and run a terminal command accordingly...
         private void Parse_Current_Profile()
         {
