@@ -37,7 +37,6 @@ namespace Scalizer
 
     public partial class MainWindow : Window
     {
-        private DisplayConfig currentDisplayConfig = new DisplayConfig();
         private enum Startup_Type
         {
             Enable,
@@ -116,13 +115,15 @@ namespace Scalizer
 
         private void Scale_Display()
         {
+            DisplayConfig currentDisplayConfig;
+
             string? currentProfile = selectedProfile.SelectedValue.ToString();
 
             for (int i = 0; i < jsonPaths.Count; i++)
             {
                 if (jsonPaths[i].Contains(currentProfile!))
                 {
-                    Parse_Json_File(jsonPaths[i]);
+                    currentDisplayConfig = Parse_Json_File(jsonPaths[i]);
 
                     // Set the instance variables to what parsed JSON objects are pointing at...
                     displayNumber = currentDisplayConfig.displayIndex;
@@ -134,11 +135,11 @@ namespace Scalizer
             }
         }
 
-        private void Parse_Json_File(string path)
+        private DisplayConfig Parse_Json_File(string path)
         {
             JObject jo = JObject.Parse(File.ReadAllText(path));
 
-            currentDisplayConfig = JsonConvert.DeserializeObject<DisplayConfig>(jo.ToString())!;
+            return JsonConvert.DeserializeObject<DisplayConfig>(jo.ToString())!;
         }
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
