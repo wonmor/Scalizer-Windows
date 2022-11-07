@@ -21,7 +21,18 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-// TO DO: DETECT DISPLAY CHANGE THEN SCALE CHANGE OR RUN IT PERIODICALLY, IDEALLY EVERY HOUR...
+/*
+ * The Scalizer Project for Windows 11.
+ * Developed and Designed by John Seong.
+ * 
+ * UPCOMING MILESTONES
+ * 1. DETECT DISPLAY CHANGE THEN SCALE CHANGE OR RUN IT PERIODICALLY, IDEALLY EVERY HOUR... (RUN IN CYCLES)
+ * 2. MAKE A COMMUNITY WEBSITE WITH RESTful API FOR ALL CUSTOM DISPLAY SCALING DATA... (A CENTRAL SQL DATABASE TO STORE ALL THOSE INFO.)
+ * 
+ * BUG FIXES NEED TO BE MADE
+ * 1. SAVE DROPDOWN BAR CURRENT PROFILE NAME LOCALLY (ONLY RUN IF THERE'S DETECTED JSON FILE IN THE APP FOLDER)
+ * 2. WHEN TOGGLING DROPDOWN BAR, CHANGE DPI SCALE
+ */
 
 namespace Scalizer
 {
@@ -113,6 +124,7 @@ namespace Scalizer
             }
         }
 
+        // Runs a terminal command that scales the display based upon user settings...
         private void Scale_Display()
         {
             DisplayConfig currentDisplayConfig;
@@ -142,12 +154,12 @@ namespace Scalizer
             return JsonConvert.DeserializeObject<DisplayConfig>(jo.ToString())!;
         }
 
-        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        private void LaunchOnStartUp_Checked(object sender, RoutedEventArgs e)
         {
             tinkerStartUpSettings(Startup_Type.Enable);
         }
 
-        private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
+        private void LaunchOnStartUp_Unchecked(object sender, RoutedEventArgs e)
         {
             tinkerStartUpSettings(Startup_Type.Disable);
         }
