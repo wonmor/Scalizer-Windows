@@ -130,7 +130,7 @@ namespace Scalizer
                     displayScaling = currentDisplayConfig.dpiSetting;
 
                     // Execute a Terminal command...
-                    TerminalHelper.execute(@".\Assets\SetDpi.exe " + displayNumber + " " + displayScaling);
+                    TerminalHelper.execute(@".\Assets\SetDpi.exe" + " " + displayNumber + " " + displayScaling);
                 }
             }
         }
