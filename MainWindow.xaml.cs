@@ -21,6 +21,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+// TO DO: DETECT DISPLAY CHANGE THEN SCALE CHANGE OR RUN IT PERIODICALLY, IDEALLY EVERY HOUR...
+
 namespace Scalizer
 {
     /// <summary>
@@ -35,6 +37,7 @@ namespace Scalizer
 
     public partial class MainWindow : Window
     {
+        private DisplayConfig currentDisplayConfig = new DisplayConfig();
         private enum Startup_Type
         {
             Enable,
@@ -44,35 +47,16 @@ namespace Scalizer
 
         private List<string> profileNames = new List<string>();
 
-        private List<DisplayConfig> displayProfileList = new List<DisplayConfig>();
-
         private List<string> jsonPaths;
 
         private bool isExecute = false;
 
-        // TO DO: SYNCRONIZE THE TWO VARIABLES BELOW WITH THE OPENED SETTINGS... NEED TO NEWLY PARSE JSON FOR THIS...
-        private int displayNumber, displayScaling;
+        private int? displayNumber;
+        private string? displayScaling;
 
         public MainWindow()
         {
             InitializeComponent();
-
-            // Load from the saved settings...
-            var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-            isExecute = bool.Parse(config.AppSettings.Settings["isEnabled"].Value);
-
-            // Startup behaviour if and only if it is set to true...
-            if (isExecute == true)
-            {
-                isEnabled.IsChecked = true;
-
-                // Execute a Terminal command...
-                // TerminalHelper.execute(@".\SetDpi.exe " + displayNumber + " " + displayScaling);
-                // TO DO: MAKE THE PROGRAM TO MOVE ASSETS FOLDER UNDER RESOURCES WHILE BUILDING FOR PROD...
-            } else
-            {
-                isEnabled.IsChecked = false;
-            }
 
             String msg = Set_Startup(Startup_Type.Get);
 
@@ -101,10 +85,60 @@ namespace Scalizer
                 }
 
                 selectedProfile.ItemsSource = profileNames;
+
+                Parse_Current_Profile();
+
             } else
             {
                 editButton.Visibility = Visibility.Hidden;
             }
+        }
+        
+        // Parse the JSON file and run a terminal command accordingly...
+        private void Parse_Current_Profile()
+        {
+            // Load from the saved settings...
+            var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            isExecute = bool.Parse(config.AppSettings.Settings["isEnabled"].Value);
+
+            // Startup behaviour if and only if it is set to true...
+            if (isExecute == true)
+            {
+                isEnabled.IsChecked = true;
+
+                Scale_Display();
+            }
+            else
+            {
+                isEnabled.IsChecked = false;
+            }
+        }
+
+        private void Scale_Display()
+        {
+            string? currentProfile = selectedProfile.SelectedValue.ToString();
+
+            for (int i = 0; i < jsonPaths.Count; i++)
+            {
+                if (jsonPaths[i].Contains(currentProfile!))
+                {
+                    Parse_Json_File(jsonPaths[i]);
+
+                    // Set the instance variables to what parsed JSON objects are pointing at...
+                    displayNumber = currentDisplayConfig.displayIndex;
+                    displayScaling = currentDisplayConfig.dpiSetting;
+
+                    // Execute a Terminal command...
+                    TerminalHelper.execute(@".\Assets\SetDpi.exe " + displayNumber + " " + displayScaling);
+                }
+            }
+        }
+
+        private void Parse_Json_File(string path)
+        {
+            JObject jo = JObject.Parse(File.ReadAllText(path));
+
+            currentDisplayConfig = JsonConvert.DeserializeObject<DisplayConfig>(jo.ToString())!;
         }
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
@@ -212,6 +246,7 @@ namespace Scalizer
 
         private void Activate_Selected_Profile(object sender, RoutedEventArgs e)
         {
+            Scale_Display();
             SetIsEnabled(true);
         }
 

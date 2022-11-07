@@ -16,6 +16,6 @@
         <Label Content="Selected Profile" HorizontalAlignment="Left" Height="28" Margin="333,210,0,0" VerticalAlignment="Top" Width="94" Grid.Column="2"/>
         <CheckBox x:Name="isEnabled" Content="Enabled" HorizontalAlignment="Left" Height="16" Margin="340,264,0,0" VerticalAlignment="Top" Width="80" Checked="Activate_Selected_Profile" Unchecked="Deactivate_Selected_Profile" Grid.Column="2"/>
         <Button x:Name="editButton" Visibility="Visible" Content="Edit Profile" HorizontalAlignment="Left" Height="24"  Margin="319,368,0,0" VerticalAlignment="Top" Width="122" Click="Button_Click" Grid.Column="2"/>
-        <Label Content="Designed and Developed by John Seong." HorizontalAlignment="Left" Margin="264,79,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="creditText" Content="Designed and Developed by John Seong." HorizontalAlignment="Left" Margin="264,79,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>

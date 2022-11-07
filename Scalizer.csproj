@@ -9,7 +9,16 @@
 
   <ItemGroup>
     <Compile Remove="WinApi.cs" />
-	  <Resource Include="Assets\SetDpi.exe" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Assets\SetDpi.exe" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Assets\SetDpi.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
