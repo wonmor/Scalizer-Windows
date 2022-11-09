@@ -60,7 +60,7 @@ namespace Scalizer
 
         private bool isExecute = false;
 
-        private int? displayNumber;
+        private int? displayNumber, selectedProfileIndex;
         private string? displayScaling;
 
         public MainWindow()
@@ -95,6 +95,19 @@ namespace Scalizer
 
                 selectedProfile.ItemsSource = profileNames;
 
+                try
+                {
+                    selectedProfile.SelectedIndex = (int)selectedProfileIndex!;
+
+                }
+                catch (IndexOutOfRangeException)
+                {
+                    // Runs if the saved profile selection isn't in "what's available" bounds...
+                    selectedProfile.SelectedIndex = 0;
+
+                    Update_Config("selectedProfileIndex", 0);
+                }
+
                 Parse_Current_Profile();
 
             } else
@@ -105,6 +118,10 @@ namespace Scalizer
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            ComboBox? comboBox = sender as ComboBox;
+
+            // Save the current selected profile's index on combobox selection change...
+            Update_Config("selectedProfileIndex", comboBox!.SelectedIndex);
             Parse_Current_Profile();
         }
 
@@ -113,7 +130,12 @@ namespace Scalizer
         {
             // Load from the saved settings...
             var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+
+
+            Trace.WriteLine(config.AppSettings.Settings["isEnabled"].Value);
+
             isExecute = bool.Parse(config.AppSettings.Settings["isEnabled"].Value);
+            selectedProfileIndex = int.Parse(config.AppSettings.Settings["selectedProfileIndex"].Value);
 
             // Startup behaviour if and only if it is set to true...
             if (isExecute == true)
@@ -160,15 +182,15 @@ namespace Scalizer
 
         private void LaunchOnStartUp_Checked(object sender, RoutedEventArgs e)
         {
-            tinkerStartUpSettings(Startup_Type.Enable);
+            Tinker_Startup_Settings(Startup_Type.Enable);
         }
 
         private void LaunchOnStartUp_Unchecked(object sender, RoutedEventArgs e)
         {
-            tinkerStartUpSettings(Startup_Type.Disable);
+            Tinker_Startup_Settings(Startup_Type.Disable);
         }
 
-        private async void tinkerStartUpSettings(Startup_Type startup_Type)
+        private async void Tinker_Startup_Settings(Startup_Type startup_Type)
         {
             statusText.Content = Set_Startup(startup_Type);
 
@@ -263,16 +285,16 @@ namespace Scalizer
 
         private void Activate_Selected_Profile(object sender, RoutedEventArgs e)
         {
+            Update_Config("isEnabled", true);
             Scale_Display();
-            SetIsEnabled(true);
         }
 
         private void Deactivate_Selected_Profile(object sender, RoutedEventArgs e)
         {
-            SetIsEnabled(false);
+            Update_Config("isEnabled", false);
         }
 
-        private void SetIsEnabled(bool value)
+        private void Update_Config(string key, object value)
         {
             var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
             config.AppSettings.Settings["isEnabled"].Value = value.ToString();
