@@ -131,9 +131,6 @@ namespace Scalizer
             // Load from the saved settings...
             var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
 
-
-            Trace.WriteLine(config.AppSettings.Settings["isEnabled"].Value);
-
             isExecute = bool.Parse(config.AppSettings.Settings["isEnabled"].Value);
             selectedProfileIndex = int.Parse(config.AppSettings.Settings["selectedProfileIndex"].Value);
 
