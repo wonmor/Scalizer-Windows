@@ -14,11 +14,11 @@
                 <GradientStop Color="DarkGray" Offset="0.0" />
             </LinearGradientBrush>
         </Grid.Background>
-        
+
         <Label x:Name="titleText" Foreground="White" Content="Welcome to Scalizer." FontFamily="./Fonts/#3270" HorizontalAlignment="Left" Height="37" Margin="264,110,0,0" VerticalAlignment="Top" Width="232" FontSize="24" Grid.Column="2" />
         <CheckBox x:Name="isOpenStartUp" Foreground="White" Content="Run on Windows Startup" HorizontalAlignment="Left" Height="22" Margin="299,152,0,0" VerticalAlignment="Top" Width="162" Checked="LaunchOnStartUp_Checked" Unchecked="LaunchOnStartUp_Unchecked" IsChecked="False" Grid.Column="2"/>
         <Button x:Name="customButton" Background="Gray" Foreground="White" Content="Create New Profile" HorizontalAlignment="Left" Height="24"  Margin="319,330,0,0" VerticalAlignment="Top" Width="122" Click="Button_Click" Grid.Column="2"/>
-        <Label x:Name="statusText" Foreground="White" HorizontalAlignment="Left" Height="25" Margin="319,192,0,0" VerticalAlignment="Top" Width="122" Grid.Column="2"/>
+        <Label x:Name="statusText" Foreground="White" HorizontalAlignment="Left" Height="25" Margin="319,180,0,0" VerticalAlignment="Top" Width="122"/>
         <ComboBox x:Name="selectedProfile" SelectionChanged="ComboBox_SelectionChanged" DropDownOpened="ComboBox_DropDownOpen" HorizontalAlignment="Left" Height="21" Margin="319,238,0,0" VerticalAlignment="Top" Width="122" RenderTransformOrigin="0.606,-0.445" Grid.Column="2"/>
         <Label Content="Selected Profile" Foreground="White" HorizontalAlignment="Left" Height="28" Margin="333,210,0,0" VerticalAlignment="Top" Width="94" Grid.Column="2"/>
         <CheckBox x:Name="isEnabled" Foreground="White" Content="Enabled" HorizontalAlignment="Left" Height="16" Margin="340,264,0,0" VerticalAlignment="Top" Width="80" Checked="Activate_Selected_Profile" Unchecked="Deactivate_Selected_Profile" Grid.Column="2"/>
