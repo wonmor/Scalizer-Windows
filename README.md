@@ -30,3 +30,9 @@ It essentially *replaces* the default Windows's DPI scaling software. Served as 
 **e.g.** Profile Name: ```my_profile```, Display Name: ```MateView```
 
 ```%APPLICATION_INSTALLED_FOLDER%\my_profile@MateView.json```
+
+---
+
+- **Application** Written in C# and .NET, accompanied with WPF graphical interface library
+
+- **Installer** Written in Typescript and Node.js, using the Electron framework
