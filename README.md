@@ -19,4 +19,12 @@ It essentially *replaces* the default Windows's DPI scaling software. Served as 
 - Windows Display API
 - Newtonsoft Json.NET
 
+---
 
+## Developer's Guide
+
+### Display Configuration JSON File Location
+
+e.g. Profile Name: my_profile, Display Name: MateView
+
+```%APPLICATION_INSTALLED_FOLDER%\my_profile@MateView.json
