@@ -2,6 +2,7 @@
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Configuration;
 using System.Diagnostics;
 using System.Globalization;
@@ -63,6 +64,8 @@ namespace Scalizer
         private int? displayNumber, selectedProfileIndex;
         private string? displayScaling;
 
+        private ConfigManager? config = new ConfigManager();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -102,10 +105,13 @@ namespace Scalizer
                 }
                 catch (IndexOutOfRangeException)
                 {
+                    Trace.WriteLine("Setting the index to 0...");
+
                     // Runs if the saved profile selection isn't in "what's available" bounds...
                     selectedProfile.SelectedIndex = 0;
 
-                    Update_Config("selectedProfileIndex", 0);
+                    config!.UpdateProperty("selectedProfileIndex", 0.ToString());
+
                 }
 
                 Parse_Current_Profile();
@@ -116,12 +122,35 @@ namespace Scalizer
             }
         }
 
+        private bool handle = false;
+
+        private void ComboBox_DropDownOpen(object sender, EventArgs e)
+        {
+            ComboBox? cmb = sender as ComboBox;
+
+            if (handle) Handle(cmb!);
+            handle = true;
+
+            Parse_Current_Profile();
+
+            cmb!.SelectedIndex = (int)selectedProfileIndex!;
+        }
+
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ComboBox? comboBox = sender as ComboBox;
+            ComboBox? cmb = sender as ComboBox;
+            handle = !cmb!.IsDropDownOpen;
+
+            Handle(cmb!);
+        }
+
+        private void Handle(ComboBox comboBox)
+        {
+            Trace.WriteLine("Selected profile index: " + comboBox!.SelectedIndex.ToString());
 
             // Save the current selected profile's index on combobox selection change...
-            Update_Config("selectedProfileIndex", comboBox!.SelectedIndex);
+            config!.UpdateProperty("selectedProfileIndex", comboBox!.SelectedIndex.ToString());
+
             Parse_Current_Profile();
         }
 
@@ -129,10 +158,13 @@ namespace Scalizer
         private void Parse_Current_Profile()
         {
             // Load from the saved settings...
-            var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            NameValueCollection? configDict = config!.ReadAppSettingsProperty();
 
-            isExecute = bool.Parse(config.AppSettings.Settings["isEnabled"].Value);
-            selectedProfileIndex = int.Parse(config.AppSettings.Settings["selectedProfileIndex"].Value);
+            if (configDict != null)
+            {
+                isExecute = bool.Parse(configDict["isExecute"]!);
+                selectedProfileIndex = int.Parse(configDict["selectedProfileIndex"]!);
+            }
 
             // Startup behaviour if and only if it is set to true...
             if (isExecute == true)
@@ -145,6 +177,8 @@ namespace Scalizer
             {
                 isEnabled.IsChecked = false;
             }
+
+            Trace.WriteLine("parsed selectedProfileIndex: " + selectedProfileIndex);
         }
 
         // Runs a terminal command that scales the display based upon user settings...
@@ -282,22 +316,13 @@ namespace Scalizer
 
         private void Activate_Selected_Profile(object sender, RoutedEventArgs e)
         {
-            Update_Config("isEnabled", true);
+            config!.UpdateProperty("isExecute", true.ToString());
             Scale_Display();
         }
 
         private void Deactivate_Selected_Profile(object sender, RoutedEventArgs e)
         {
-            Update_Config("isEnabled", false);
-        }
-
-        private void Update_Config(string key, object value)
-        {
-            var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-            config.AppSettings.Settings["isEnabled"].Value = value.ToString();
-            config.Save(ConfigurationSaveMode.Modified);
-
-            ConfigurationManager.RefreshSection("appSettings");
+            config!.UpdateProperty("isExecute", false.ToString());
         }
     }
 }
