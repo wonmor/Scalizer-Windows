@@ -1,9 +1,9 @@
 # Scalizer for Windows 11
 **Scalizer** automatically configures the Windows' UI scale on unsupported displays, such as Huawei's Mateview.
 
-<img width="508" alt="Screenshot 2022-10-21 222814" src="https://user-images.githubusercontent.com/35755386/197315095-799f36f8-620f-4835-9e05-980843293906.png">
+<img width="583" alt="Screenshot 2022-11-13 104045" src="https://user-images.githubusercontent.com/35755386/201530562-6488f21f-3500-43fc-831a-f3dda39745b5.png">
 
-<img width="508" alt="Screenshot_2" src="https://user-images.githubusercontent.com/35755386/194969393-7879708c-0fe6-40bc-8717-a1a71035eabf.png">
+<img width="574" alt="Screenshot 2022-11-13 103918" src="https://user-images.githubusercontent.com/35755386/201530569-aa2e41bf-ec6c-4c60-8b9b-a7bfadf4dbe6.png">
 
 ---
 
