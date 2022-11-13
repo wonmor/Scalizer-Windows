@@ -1,0 +1,183 @@
+/*
+ * @NOTE: Prepend a `~` to css file paths that are in your node_modules
+ *        See https://github.com/webpack-contrib/sass-loader#imports
+ */
+
+@font-face {
+  font-family: '3270';
+  src: url('../../assets/fonts/3270.ttf') format('truetype');
+  font-weight: normal;
+  font-style: monospace;
+}
+
+body {
+  position: relative;
+  color: white;
+  height: 100vh;
+  background: #485563;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #29323c, #485563);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #29323c, #485563); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  font-family: '3270', monospace;
+  overflow-y: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+footer {
+  background: rgba(111, 122, 122, 0.5);
+  position: block;
+  display: flex;
+  border-radius: 10px;
+  text-align: center;
+  width: 100%;
+  left: 0;
+  bottom: 0;
+}
+
+button {
+  background-color: white;
+  padding: 10px 20px;
+  border-radius: 10px;
+  margin-right: 10px;
+  border: none;
+  appearance: none;
+  font-family: '3270', monospace;
+  font-size: 1.3rem;
+  box-shadow: 0px 8px 28px -6px rgba(24, 39, 75, 0.12),
+    0px 18px 88px -4px rgba(24, 39, 75, 0.14);
+  transition: all ease-in 0.1s;
+  cursor: pointer;
+}
+
+button:hover {
+  transform: scale(1.05);
+  opacity: 1;
+}
+
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  height: fit-content;
+  width: fit-content;
+  margin: 10px;
+}
+
+a:hover {
+  opacity: 1;
+  text-decoration: none;
+}
+
+.Hello {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.Hello-Title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.Hello-Description {
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin: 0;
+}
+
+.Hello-Button {
+  margin: 0 10px;
+  background-color: black;
+  color: white;
+}
+
+.Glyph {
+  padding-right: 10px;
+}
+
+.Generic-Footer-Container {
+  font-size: 1.25em;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.Generic-Footer-Bold-Text {
+  font-weight: 700;
+  font-size: 1.5em;
+}
+
+.Wardrobe-Container {
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+  max-height: 300px;
+  border-radius: 10px;
+  color: black;
+  font-family: '3270', monospace;
+  background-color: white;
+  overflow-y: scroll;
+  padding: 10px;
+}
+
+.Wardrobe-Image-Container {
+  background-color: lightgray;
+}
+
+.Wardrobe-Item-Image {
+  max-width: 70%;
+  margin-top: 10px;
+  object-fit: cover;
+}
+
+.Wardrove-Item-Name {
+  font-size: 1.2rem;
+  margin: 10px 0;
+}
+
+.Preview-Container {
+  margin: 20px;
+  max-height: 500px;
+  border-radius: 10px;
+  color: white;
+  background-color: black;
+  overflow-y: scroll;
+  padding: 10px;
+}
+
+.Preview-Description-Text {
+  font-family: '3270', monospace;
+  font-size: 1.2rem;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.Preview-Image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
+  max-width: 300px;
+  object-fit: cover;
+}
+
+.Preview-Button-Back {
+  margin: 20px;
+  background-color: rgba(47, 79, 79, 0.5);
+  color: white;
+}
+
+.Preview-Button-Install {
+  @extend .Preview-Button-Back;
+  color: white;
+  background-color: rgba(92, 92, 92, 0.5);
+}
+
