@@ -107,7 +107,7 @@ namespace Scalizer
                     // Runs if the saved profile selection isn't in "what's available" bounds...
                     selectedProfile.SelectedIndex = 0;
 
-                    config!.UpdateProperty("selectedProfileIndex", 0.ToString());
+                    config!.UpdateProperty("selectedProfileIndex", "0");
 
                 }
 
@@ -312,13 +312,13 @@ namespace Scalizer
 
         private void Activate_Selected_Profile(object sender, RoutedEventArgs e)
         {
-            config!.UpdateProperty("isExecute", true.ToString());
+            config!.UpdateProperty("isExecute", "true");
             Scale_Display();
         }
 
         private void Deactivate_Selected_Profile(object sender, RoutedEventArgs e)
         {
-            config!.UpdateProperty("isExecute", false.ToString());
+            config!.UpdateProperty("isExecute", "false");
         }
     }
 }
