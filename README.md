@@ -11,7 +11,7 @@ It essentially *replaces* the default Windows's DPI scaling software. Served as 
 
 <img width="574" alt="Screenshot 2022-11-13 103918" src="https://user-images.githubusercontent.com/35755386/201530569-aa2e41bf-ec6c-4c60-8b9b-a7bfadf4dbe6.png">
 
-**IMPORTANT NOTE**: Make sure you turn on the "custom scaling factor..." on Display under Windows Settings before running this app!
+**IMPORTANT NOTE**: Make sure you turn on the "custom scaling factor..." in Display under Windows Settings before running this app!
 
 ---
 
