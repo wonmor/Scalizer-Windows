@@ -27,4 +27,4 @@ It essentially *replaces* the default Windows's DPI scaling software. Served as 
 
 e.g. Profile Name: my_profile, Display Name: MateView
 
-```%APPLICATION_INSTALLED_FOLDER%\my_profile@MateView.json
+```%APPLICATION_INSTALLED_FOLDER%\my_profile@MateView.json```
