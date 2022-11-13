@@ -4,10 +4,5 @@
              xmlns:local="clr-namespace:Scalizer"
              Startup="App_Startup">
     <Application.Resources>
-        <Style x:Key="3270">
-            <Setter Property="TextElement.FontFamily"
-                    Value="/Fonts/#3270SemiNarrow NFM">
-            </Setter>
-        </Style>
     </Application.Resources>
 </Application>
