@@ -17,6 +17,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
@@ -115,6 +116,10 @@ namespace Scalizer
             {
                 editButton.Visibility = Visibility.Hidden;
             }
+
+
+            // Temporary...
+            this.Closed += MainWindow_Closed!;
         }
 
         private bool handle = false;
@@ -319,6 +324,50 @@ namespace Scalizer
         private void Deactivate_Selected_Profile(object sender, RoutedEventArgs e)
         {
             config!.UpdateProperty("isExecute", "false");
+        }
+
+        private static void MainWindow_Closed(object sender, EventArgs e)
+        {
+            DeviceNotification.UnRegisterUsbDeviceNotification();
+            DeviceNotification.UnRegisterMonitorDeviceNotification();
+        }
+
+
+        protected override void OnSourceInitialized(EventArgs e)
+        {
+            base.OnSourceInitialized(e);
+
+            if (!(PresentationSource.FromVisual(this) is HwndSource source))
+                return;
+
+            source.AddHook(this.WndProc);
+
+            DeviceNotification.RegisterUsbDeviceNotification(source.Handle);
+            DeviceNotification.RegisterMonitorDeviceNotification(source.Handle);
+        }
+
+        private IntPtr WndProc(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+        {
+            if (msg != DeviceNotification.WmDeviceChange)
+                return IntPtr.Zero;
+
+            Debug.WriteLine("WM_DEVICE_CHANGE TRIGGERED");
+
+            switch ((int)wParam)
+            {
+                case DeviceNotification.DbtDeviceRemoveComplete:
+                case DeviceNotification.DbtDeviceArrival:
+                    {
+                        if (DeviceNotification.IsMonitor(lParam))
+                            Debug.WriteLine($"Monitor {((int)wParam == DeviceNotification.DbtDeviceArrival ? "arrived" : "removed")}");
+
+                        if (DeviceNotification.IsUsbDevice(lParam))
+                            Debug.WriteLine($"Usb device {((int)wParam == DeviceNotification.DbtDeviceArrival ? "arrived" : "removed")}");
+                    }
+                    break;
+            }
+
+            return IntPtr.Zero;
         }
     }
 }
