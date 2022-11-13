@@ -1,0 +1,15 @@
+{
+    "name": "Scalizer: A Display UI-Scaling Software",
+    "version": "0.1.0",
+    "description": "Arguably the best display scaling software for Windows.",
+    "license": "Apache-2.0",
+    "keywords": [
+      "display",
+      "scaling",
+        "ui",
+        "dpi"
+    ],
+    "author": "John Seong",
+    "copyrightYear": "2022",
+    "favicon": "https://openclipart.org/image/400px/svg_to_png/203766/dog.png"
+  }
