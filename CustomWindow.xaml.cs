@@ -114,8 +114,18 @@ namespace Scalizer
                     break;
 
                 case "saveButton":
+                    int dpi;
+
                     // If the entered dpiValue is divisible by 5 and is between 80 and 300...
-                    int dpi = int.Parse(dpiValue.Text);
+                    try
+                    {
+                        dpi = int.Parse(dpiValue.Text);
+
+                    } catch (Exception)
+                    {
+                        MessageBox.Show("Enter a valid DPI scale factor. It has to be in percentages!", "Error");
+                        return;
+                    }
 
                     if (dpi % 5 == 0 && dpi >= 80 && dpi <= 400)
                     {
