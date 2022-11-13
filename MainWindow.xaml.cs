@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.Win32;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -113,7 +114,6 @@ namespace Scalizer
                     selectedProfile.SelectedIndex = 0;
 
                     config!.UpdateProperty("selectedProfileIndex", "0");
-
                 }
 
             } else
@@ -121,8 +121,10 @@ namespace Scalizer
                 editButton.Visibility = Visibility.Hidden;
             }
 
+            // When display resolution or orientation setting has changed...
+            SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged!;
 
-            // Temporary...
+            // Temporary fix for closing the display new connection observation process...
             this.Closed += MainWindow_Closed!;
         }
 
@@ -322,6 +324,7 @@ namespace Scalizer
         private void Activate_Selected_Profile(object sender, RoutedEventArgs e)
         {
             config!.UpdateProperty("isExecute", "true");
+
             Scale_Display();
         }
 
@@ -363,7 +366,11 @@ namespace Scalizer
                 case DeviceNotification.DbtDeviceArrival:
                     {
                         if (DeviceNotification.IsMonitor(lParam))
+                        {
                             Debug.WriteLine($"Monitor {((int)wParam == DeviceNotification.DbtDeviceArrival ? "arrived" : "removed")}");
+
+                            Scale_Display();
+                        }
 
                         if (DeviceNotification.IsUsbDevice(lParam))
                             Debug.WriteLine($"Usb device {((int)wParam == DeviceNotification.DbtDeviceArrival ? "arrived" : "removed")}");
@@ -373,5 +380,15 @@ namespace Scalizer
 
             return IntPtr.Zero;
         }
+
+        public void SystemEvents_DisplaySettingsChanged(object sender, EventArgs e)
+
+        {
+
+            Scale_Display();
+
+        }
     }
+
+    // TO DO: TRIGGER SCALING UPON DISPLAY SETTING CHANGE...
 }
