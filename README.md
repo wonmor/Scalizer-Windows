@@ -3,7 +3,7 @@
 ### [Buy me a Coffee ☕](https://www.buymeacoffee.com/wonmor)
 
 **Scalizer** automatically configures the Windows' UI scale on unsupported displays, such as Huawei's Mateview.
-It essentially *replaces* the default Windows's DPI scaling software. Served as an **Open-source** distribution; covered under the Apache 2.0 License.
+It effectively *replaces* the default Windows's DPI scaling software. Served as an **Open-source** distribution; covered under the Apache 2.0 License.
 
 ---
 
