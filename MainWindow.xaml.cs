@@ -29,9 +29,6 @@ using System.Windows.Shapes;
  * UPCOMING MILESTONES
  * 1. DETECT DISPLAY CHANGE THEN SCALE CHANGE OR RUN IT PERIODICALLY, IDEALLY EVERY HOUR... (RUN IN CYCLES)
  * 2. MAKE A COMMUNITY WEBSITE WITH RESTful API FOR ALL CUSTOM DISPLAY SCALING DATA... (A CENTRAL SQL DATABASE TO STORE ALL THOSE INFO.)
- * 
- * BUG FIXES NEED TO BE MADE
- * 1. SAVE DROPDOWN BAR CURRENT PROFILE NAME LOCALLY (ONLY RUN IF THERE'S DETECTED JSON FILE IN THE APP FOLDER)
  */
 
 namespace Scalizer
@@ -98,12 +95,14 @@ namespace Scalizer
 
                 selectedProfile.ItemsSource = profileNames;
 
+                Parse_Current_Profile();
+
                 try
                 {
-                    selectedProfile.SelectedIndex = (int)selectedProfileIndex!;
+                    selectedProfile.SelectedIndex = (int) selectedProfileIndex!;
 
                 }
-                catch (IndexOutOfRangeException)
+                catch (Exception)
                 {
                     Trace.WriteLine("Setting the index to 0...");
 
@@ -113,8 +112,6 @@ namespace Scalizer
                     config!.UpdateProperty("selectedProfileIndex", 0.ToString());
 
                 }
-
-                Parse_Current_Profile();
 
             } else
             {
@@ -132,6 +129,7 @@ namespace Scalizer
             handle = true;
 
             Parse_Current_Profile();
+            Set_Up_Startup_Behaviour();
 
             cmb!.SelectedIndex = (int)selectedProfileIndex!;
         }
@@ -152,6 +150,7 @@ namespace Scalizer
             config!.UpdateProperty("selectedProfileIndex", comboBox!.SelectedIndex.ToString());
 
             Parse_Current_Profile();
+            Set_Up_Startup_Behaviour();
         }
 
         // Parse the JSON file and run a terminal command accordingly...
@@ -165,7 +164,10 @@ namespace Scalizer
                 isExecute = bool.Parse(configDict["isExecute"]!);
                 selectedProfileIndex = int.Parse(configDict["selectedProfileIndex"]!);
             }
+        }
 
+        private void Set_Up_Startup_Behaviour()
+        {
             // Startup behaviour if and only if it is set to true...
             if (isExecute == true)
             {
