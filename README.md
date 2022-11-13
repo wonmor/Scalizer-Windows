@@ -35,4 +35,4 @@ It essentially *replaces* the default Windows's DPI scaling software. Served as 
 
 - **Application** written in C# and .NET, accompanied with WPF graphical interface library
 
-- **Installer** written in Typescript and Node.js, using the Electron framework
+- **GUI Installer** written in Typescript and Node.js, using the Electron framework
