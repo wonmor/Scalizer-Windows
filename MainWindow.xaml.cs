@@ -104,8 +104,6 @@ namespace Scalizer
                 }
                 catch (Exception)
                 {
-                    Trace.WriteLine("Setting the index to 0...");
-
                     // Runs if the saved profile selection isn't in "what's available" bounds...
                     selectedProfile.SelectedIndex = 0;
 
@@ -144,8 +142,6 @@ namespace Scalizer
 
         private void Handle(ComboBox comboBox)
         {
-            Trace.WriteLine("Selected profile index: " + comboBox!.SelectedIndex.ToString());
-
             // Save the current selected profile's index on combobox selection change...
             config!.UpdateProperty("selectedProfileIndex", comboBox!.SelectedIndex.ToString());
 
@@ -179,8 +175,6 @@ namespace Scalizer
             {
                 isEnabled.IsChecked = false;
             }
-
-            Trace.WriteLine("parsed selectedProfileIndex: " + selectedProfileIndex);
         }
 
         // Runs a terminal command that scales the display based upon user settings...
