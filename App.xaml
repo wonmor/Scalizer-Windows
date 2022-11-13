@@ -4,5 +4,6 @@
              xmlns:local="clr-namespace:Scalizer"
              Startup="App_Startup">
     <Application.Resources>
+        <FontFamily x:Key="3270">pack://application:,,,/Fonts/#IBM 3270 Semi-Narrow </FontFamily>
     </Application.Resources>
 </Application>

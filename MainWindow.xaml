@@ -15,14 +15,19 @@
             </LinearGradientBrush>
         </Grid.Background>
 
-        <Label x:Name="titleText" Foreground="White" Content="Welcome to Scalizer." FontFamily="./Fonts/#3270" HorizontalAlignment="Left" Height="37" Margin="264,110,0,0" VerticalAlignment="Top" Width="232" FontSize="24" Grid.Column="2" />
-        <CheckBox x:Name="isOpenStartUp" Foreground="White" Content="Run on Windows Startup" HorizontalAlignment="Left" Height="22" Margin="299,152,0,0" VerticalAlignment="Top" Width="162" Checked="LaunchOnStartUp_Checked" Unchecked="LaunchOnStartUp_Unchecked" IsChecked="False" Grid.Column="2"/>
-        <Button x:Name="customButton" Background="Gray" Foreground="White" Content="Create New Profile" HorizontalAlignment="Left" Height="24"  Margin="319,330,0,0" VerticalAlignment="Top" Width="122" Click="Button_Click" Grid.Column="2"/>
-        <Label x:Name="statusText" Foreground="White" HorizontalAlignment="Left" Height="25" Margin="319,180,0,0" VerticalAlignment="Top" Width="122"/>
-        <ComboBox x:Name="selectedProfile" SelectionChanged="ComboBox_SelectionChanged" DropDownOpened="ComboBox_DropDownOpen" HorizontalAlignment="Left" Height="21" Margin="319,238,0,0" VerticalAlignment="Top" Width="122" RenderTransformOrigin="0.606,-0.445" Grid.Column="2"/>
-        <Label Content="Selected Profile" Foreground="White" HorizontalAlignment="Left" Height="28" Margin="333,210,0,0" VerticalAlignment="Top" Width="94" Grid.Column="2"/>
-        <CheckBox x:Name="isEnabled" Foreground="White" Content="Enabled" HorizontalAlignment="Left" Height="16" Margin="340,264,0,0" VerticalAlignment="Top" Width="80" Checked="Activate_Selected_Profile" Unchecked="Deactivate_Selected_Profile" Grid.Column="2"/>
-        <Button x:Name="editButton" Foreground="White" Background="SlateGray" Visibility="Visible" Content="Edit Profile" HorizontalAlignment="Left" Height="24"  Margin="319,368,0,0" VerticalAlignment="Top" Width="122" Click="Button_Click" Grid.Column="2"/>
-        <Label x:Name="creditText" Foreground="White" Content="Designed and Developed by John Seong" HorizontalAlignment="Left" Margin="264,79,0,0" VerticalAlignment="Top"/>
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Label x:Name="titleText" Foreground="White" FontFamily="{StaticResource 3270}" Content="Welcome to Scalizer." HorizontalAlignment="Center" Height="55" Margin="0,54,0,0" VerticalAlignment="Top" Width="476" FontSize="48" />
+
+            <Grid HorizontalAlignment="Center" Width="800" Margin="0,-13,0,13">
+                <CheckBox x:Name="isOpenStartUp" FontFamily="{StaticResource 3270}" Foreground="White" Content="Run on Windows Startup" HorizontalAlignment="Left" Height="22" Margin="261,135,0,0" VerticalAlignment="Top" Width="238" Checked="LaunchOnStartUp_Checked" Unchecked="LaunchOnStartUp_Unchecked" IsChecked="False" FontSize="20"/>
+                <Button x:Name="customButton" FontFamily="{StaticResource 3270}" Background="Gray" Foreground="White" Content="Create New Profile" HorizontalAlignment="Left" Height="29"  Margin="286,328,0,0" VerticalAlignment="Top" Width="188" Click="Button_Click" FontSize="20"/>
+                <ComboBox x:Name="selectedProfile" FontFamily="{StaticResource 3270}" SelectionChanged="ComboBox_SelectionChanged" DropDownOpened="ComboBox_DropDownOpen" HorizontalAlignment="Left" Height="33" Margin="302,238,0,0" VerticalAlignment="Top" Width="156" RenderTransformOrigin="0.606,-0.445" FontSize="20"/>
+                <Label Content="Selected Profile" FontFamily="{StaticResource 3270}" Foreground="White" HorizontalAlignment="Left" Height="28" Margin="296,205,0,0" VerticalAlignment="Top" Width="168" FontSize="20"/>
+                <CheckBox x:Name="isEnabled" FontFamily="{StaticResource 3270}" Foreground="White" Content="Enabled" HorizontalAlignment="Left" Height="16" Margin="335,276,0,0" VerticalAlignment="Top" Width="90" Checked="Activate_Selected_Profile" Unchecked="Deactivate_Selected_Profile" FontSize="20"/>
+                <Button x:Name="editButton" FontFamily="{StaticResource 3270}" Foreground="White" Background="SlateGray" Visibility="Visible" Content="Edit Profile" HorizontalAlignment="Left" Height="28"  Margin="311,371,0,0" VerticalAlignment="Top" Width="132" Click="Button_Click" FontSize="20"/>
+            </Grid>
+
+            <Label x:Name="creditText" FontFamily="{StaticResource 3270}" Foreground="White" Content="Designed and Developed by John Seong" HorizontalAlignment="Center" Margin="0,22,0,0" VerticalAlignment="Top" FontSize="20"/>
+        </Grid>
     </Grid>
 </Window>

@@ -27,14 +27,21 @@ namespace Scalizer
                 }
             }
 
-            // Create main application window, starting minimized if specified
-            MainWindow mainWindow = new MainWindow();
-
-            if (startMinimized)
+            try
             {
-                mainWindow.WindowState = WindowState.Minimized;
+                // Create main application window, starting minimized if specified
+                MainWindow mainWindow = new MainWindow();
+
+                if (startMinimized)
+                {
+                    mainWindow.WindowState = WindowState.Minimized;
+                }
+                mainWindow.Show();
+
+            } catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Alert", MessageBoxButton.OK, MessageBoxImage.Information);
             }
-            mainWindow.Show();
         }
     }
 }

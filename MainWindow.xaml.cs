@@ -38,7 +38,7 @@ using System.Windows.Shapes;
  * URGENT CHANGES NEED TO BE MADE
  * 1. REMOVE THE TEMP. LINE -> REPLACE IT WITH A METHOD THAT ONLY SHUTS DOWN THE DISPLAY NOTIFICATION SYSTEM WHEN THE APP IS COMPLETELY CLOSED, NOT JUST WHEN MERELY THE WINDOW IS CLOSED...
  * 2. BUG FIX NEED TO BE MADE -> FIX THE CYCLE ERROR WHEN YOU MAKE A NEW PROFILE ON 2-DISPLAY SETUP WITH ONLY ONE DISPLAY PROFILE ACTIVE... (DUE TO ONLY DISPLAY ON CERTAIN MONITOR OPTION ON WINDOWS SETTINGS)
- * 3. FIX THE FONT ISSUE
+ * 3. FIX THE ISSUE WHEN AFTER CREATING NEW PROFILE, THE COMBOBOX SELECTED ITEM DOES NOT AUTOMATICALLY SELECT THE NEW ITEM...
  */
 
 namespace Scalizer
@@ -196,8 +196,17 @@ namespace Scalizer
         private void Scale_Display()
         {
             DisplayConfig currentDisplayConfig;
+            string? currentProfile;
 
-            string? currentProfile = selectedProfile.SelectedValue.ToString();
+            try
+            {
+                currentProfile = selectedProfile.SelectedValue.ToString();
+            }
+
+            catch (NullReferenceException)
+            {
+                currentProfile = string.Empty;
+            }
 
             for (int i = 0; i < jsonPaths.Count; i++)
             {
@@ -234,13 +243,9 @@ namespace Scalizer
 
         private async void Tinker_Startup_Settings(Startup_Type startup_Type)
         {
-            statusText.Content = Set_Startup(startup_Type);
-
-            Dynamically_Set_Label_Dimensions();
+            Set_Startup(startup_Type);
 
             await Task.Delay(TimeSpan.FromSeconds(3));
-
-            statusText.Content = "";
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -298,31 +303,6 @@ namespace Scalizer
             Visibility = Visibility.Hidden;
 
             customWindow.Show();
-        }
-
-        private void Dynamically_Set_Label_Dimensions()
-        {
-            double[] dimensions = Measure_String(statusText.ContentStringFormat);
-
-            statusText.Width = dimensions[0];
-            statusText.Height = dimensions[1];
-        }
-
-        private double[] Measure_String(string candidate)
-        {
-            if (candidate == null) return new double[] { 130, 50 };
-
-            var formattedText = new FormattedText(
-                candidate,
-                CultureInfo.CurrentCulture,
-                FlowDirection.LeftToRight,
-                new Typeface(this.statusText.FontFamily, this.statusText.FontStyle, this.statusText.FontWeight, this.statusText.FontStretch),
-                this.statusText.FontSize,
-                Brushes.Black,
-                new NumberSubstitution(),
-                1);
-
-            return new double[] { formattedText.Width, formattedText.Height };
         }
 
         private void Activate_Selected_Profile(object sender, RoutedEventArgs e)

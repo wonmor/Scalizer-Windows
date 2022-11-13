@@ -20,9 +20,9 @@
     <Content Include="Assets\SetDpi.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-	<Content Include="Fonts\3270.ttf">
-		<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	</Content>
+	<Resource Include="Fonts\3270.ttf">
+		<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	</Resource>
   </ItemGroup>
 
   <ItemGroup>
