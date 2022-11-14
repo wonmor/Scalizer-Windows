@@ -29,7 +29,7 @@ It effectively *replaces* the default Windows's DPI scaling software. Served as 
 
 **e.g.** Profile Name: ```my_profile```, Display Name: ```MateView```
 
-```%APPLICATION_INSTALLED_FOLDER%\my_profile@MateView.json```
+```C:\Program Files\Scalizer-Alpha\my_profile@MateView.json```
 
 ---
 
