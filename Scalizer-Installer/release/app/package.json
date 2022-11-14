@@ -1,6 +1,6 @@
 {
   "name": "install-scalizer-windows",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Scalizer automatically configures the Windows' UI scale on unsupported displays, such as Huawei's Mateview.",
   "license": "Apache-2.0",
   "author": {

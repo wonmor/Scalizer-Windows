@@ -6,6 +6,8 @@
 	  <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>Assets\Scalizer-Icon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -17,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Assets\Scalizer-Icon.ico" />
     <Content Include="Assets\SetDpi.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

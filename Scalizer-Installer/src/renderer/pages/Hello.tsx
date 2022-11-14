@@ -1,7 +1,5 @@
 import { useNavigate } from 'react-router-dom';
 
-import logo from '../../../assets/logo.svg';
-
 import Footer from './Footer';
 
 export default function Hello() {
@@ -23,7 +21,7 @@ export default function Hello() {
         <button
           className="Hello-Button"
           type="button"
-          onClick={() => routeChange('/select')}
+          onClick={() => routeChange('/docs')}
         >
           <span className="Glyph" role="img" aria-label="books">
             💿

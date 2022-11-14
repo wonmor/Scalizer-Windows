@@ -2,7 +2,8 @@ import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 
 import Hello from './pages/Hello';
-import Select from './pages/Select';
+import Docs from './pages/Docs';
+import Install from './pages/Install';
 
 export default function App() {
   return (
@@ -10,7 +11,8 @@ export default function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Hello />} />
-          <Route path="/select" element={<Select />} />
+          <Route path="/docs" element={<Docs />} />
+          <Route path="/install" element={<Install />} />
         </Routes>
       </Router>
     </>
