@@ -97,6 +97,13 @@ a:hover {
   color: white;
 }
 
+.Hello-Button-Start {
+  @extend .Hello-Button;
+  margin-top: 30px;
+  background-color: wheat;
+  color: black;
+}
+
 .Glyph {
   padding-right: 10px;
 }

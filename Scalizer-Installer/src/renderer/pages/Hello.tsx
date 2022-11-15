@@ -1,13 +1,37 @@
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { Notification } from 'electron';
+
+import fs from 'fs';
 import Footer from './Footer';
+
+const child = require('child_process').execFile;
+
+const executablePath = 'C:\\Program Files\\Scalizer-Alpha\\Scalizer.exe';
 
 export default function Hello() {
   const navigate = useNavigate();
+  const [alreadyInstalled, setAlreadyInstalled] = useState(false);
 
   const routeChange = (path: string) => {
     navigate(path);
   };
+
+  useEffect(() => {
+    fs.stat(
+      'C:\\Program Files\\Scalizer-Alpha',
+      (err: unknown, stats: fs.Stats) => {
+        try {
+          if (stats.isDirectory()) {
+            setAlreadyInstalled(true);
+          }
+        } catch (error) {
+          setAlreadyInstalled(false);
+        }
+      }
+    );
+  }, []);
 
   return (
     <>
@@ -17,17 +41,53 @@ export default function Hello() {
         Display Scaling on Windows, <b>Reimagined</b>
       </p>
 
-      <div className="Hello">
+      {alreadyInstalled && (
         <button
-          className="Hello-Button"
+          className="Hello-Button-Start"
           type="button"
-          onClick={() => routeChange('/docs')}
+          onClick={() => {
+            // This line executes the Scalizer-Alpha executable...
+            child(executablePath, (err: string) => {
+              if (err) {
+                new Notification({
+                  title: 'Unexpected Error Occured.',
+                  body: err,
+                }).show();
+              }
+            });
+          }}
         >
           <span className="Glyph" role="img" aria-label="books">
-            💿
+            😈
           </span>
-          Install
+          Launch Scalizer
         </button>
+      )}
+
+      <div className="Hello">
+        {!alreadyInstalled ? (
+          <button
+            className="Hello-Button"
+            type="button"
+            onClick={() => routeChange('/docs')}
+          >
+            <span className="Glyph" role="img" aria-label="books">
+              💿
+            </span>
+            Install
+          </button>
+        ) : (
+          <button
+            className="Hello-Button"
+            type="button"
+            onClick={() => routeChange('/uninstall')}
+          >
+            <span className="Glyph" role="img" aria-label="books">
+              ⬅️
+            </span>
+            Uninstall
+          </button>
+        )}
 
         <a
           href="https://www.buymeacoffee.com/wonmor"

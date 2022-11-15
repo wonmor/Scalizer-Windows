@@ -1,26 +1,11 @@
 import path from 'path';
+
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-// TO DO: MAKE AN UNINSTALLING FUNCTION...
-
 const fs = window.require('fs');
 
-// const { ProgId, ShellOption, Regedit } = require('electron-regedit');
-
-// eslint-disable-next-line no-new
-// new ProgId({
-//   description: 'Install Scalizer',
-//   icon: '../../../assets/icon.ico',
-//   extensions: ['install-scalizer'],
-//   shell: [
-//     new ShellOption({ verb: ShellOption.OPEN }),
-//     new ShellOption({ verb: ShellOption.EDIT, args: ['--edit'] }),
-//     new ShellOption({ verb: ShellOption.PRINT, args: ['--print'] }),
-//   ],
-// });
-
-const copyFileSync = (source: string, target: string) => {
+export const copyFileSync = (source: string, target: string) => {
   let targetFile = target;
 
   // If target is a directory, a new file with the same name will be created
@@ -70,18 +55,10 @@ export default function Install() {
       }/assets/sources/Scalizer-Alpha`,
       'C:\\Program Files\\'
     );
-
-    // Regedit.installAll();
   };
 
   useEffect(() => {
-    // BUG FIX NEEDED: Temporary fix for already installed case...
-    try {
-      install();
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.log(error);
-    }
+    install();
 
     setTimeout(() => {
       routeChange('/');
