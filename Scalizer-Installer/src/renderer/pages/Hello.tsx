@@ -8,7 +8,8 @@ import Footer from './Footer';
 
 const child = require('child_process').execFile;
 
-const executablePath = 'C:\\Program Files\\Scalizer-Alpha\\Scalizer.exe';
+const executablePath =
+  'C:\\Program Files\\Scalizer-Alpha\\net6.0-windows\\Scalizer.exe';
 
 export default function Hello() {
   const navigate = useNavigate();

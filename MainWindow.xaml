@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Scalizer"
         mc:Ignorable="d"
-        Title="Scalizer" Height="450" Width="800" Background="Black">
+        Title="Scalizer ALPHA" Height="450" Width="800" Background="Black">
 
     <Grid>
         <Grid.Background>
@@ -16,7 +16,7 @@
         </Grid.Background>
 
         <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Label x:Name="titleText" Foreground="White" FontFamily="{StaticResource 3270}" Content="Welcome to Scalizer." HorizontalAlignment="Center" Height="55" Margin="0,54,0,0" VerticalAlignment="Top" Width="476" FontSize="48" />
+            <Label x:Name="titleText" Foreground="White" FontFamily="{StaticResource 3270}" Content="Welcome to Scalizer ALPHA." HorizontalAlignment="Center" Height="55" Margin="0,54,0,0" VerticalAlignment="Top" Width="626" FontSize="48" />
 
             <Grid HorizontalAlignment="Center" Width="800" Margin="0,-13,0,13">
                 <CheckBox x:Name="isOpenStartUp" FontFamily="{StaticResource 3270}" Foreground="White" Content="Run on Windows Startup" HorizontalAlignment="Left" Height="22" Margin="261,135,0,0" VerticalAlignment="Top" Width="238" Checked="LaunchOnStartUp_Checked" Unchecked="LaunchOnStartUp_Unchecked" IsChecked="False" FontSize="20"/>

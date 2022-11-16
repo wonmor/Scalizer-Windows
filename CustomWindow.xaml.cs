@@ -262,7 +262,7 @@ namespace Scalizer
             dpiValue.Text = currentDisplayConfig.dpiSetting;
         }
 
-        public void Retrieve_Display_Info()
+        private void Retrieve_Display_Info()
         {
             List<string> displays = new List<string>();
 

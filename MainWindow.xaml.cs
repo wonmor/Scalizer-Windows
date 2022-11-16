@@ -10,6 +10,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,6 +24,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WindowsDisplayAPI.DisplayConfig;
 
 /*
  * The Scalizer Project for Windows 11.
@@ -64,14 +66,18 @@ namespace Scalizer
 
         private List<string> profileNames = new List<string>();
 
-        private List<string> jsonPaths;
+        private List<string> jsonPaths = new List<string>();
 
         private bool isExecute = false;
+        private bool isAlwaysReactive = true;
 
         private int? displayNumber, selectedProfileIndex;
         private string? displayScaling;
 
         private ConfigManager? config = new ConfigManager();
+
+        // Get current directory...
+        private readonly DirectoryInfo di = new DirectoryInfo(Directory.GetCurrentDirectory());
 
         public MainWindow()
         {
@@ -82,18 +88,22 @@ namespace Scalizer
             isOpenStartUp.IsChecked = msg.Contains("not");
 
             // Retrieve all the JSON files present in the root EXE file directory...
-            jsonPaths = Directory.EnumerateFiles(@".\", "*", SearchOption.AllDirectories)
-               .Where(s => s.EndsWith(".json") && s.Count(c => c == '.') == 2)
-               .ToList();
+            jsonPaths = Directory.EnumerateFiles(di.FullName, "*", SearchOption.AllDirectories)
+              .Where(s => s.EndsWith(".json") && s.Count(c => c == '.') == 2)
+              .ToList();
 
             // Only if jsonPaths list is NOT empty...
-            if (jsonPaths.Any())
+            if (jsonPaths!.Any())
             {
                 editButton.Visibility = Visibility.Visible;
 
-                for (int i = 0; i < jsonPaths.Count; i++)
+                for (int i = 0; i < jsonPaths!.Count; i++)
                 {
-                    string[] parsedFileName = jsonPaths[i].Replace(@".\", @"").Split("@");
+                    string[] parsedFileName;
+
+                    // Clean the profile name...
+                    parsedFileName = jsonPaths[i].Replace(di.FullName + @"\", @"").Replace(@"resources\assets\sources\Scalizer-Alpha\net6.0-windows\", "").Split("@");
+
                     string currentProfileName = parsedFileName[0];
 
                     // If the config. with same profile doesn't exist in the profileNames array...
@@ -130,6 +140,12 @@ namespace Scalizer
 
             // Temporary fix for closing the display new connection observation process...
             this.Closed += MainWindow_Closed!;
+
+            if (isEnabled.IsChecked == true)
+            {
+                Pause_SystemEvents_Observer();
+                Scale_Display();
+            }
         }
 
         private bool handle = false;
@@ -184,6 +200,7 @@ namespace Scalizer
             {
                 isEnabled.IsChecked = true;
 
+                Pause_SystemEvents_Observer();
                 Scale_Display();
             }
             else
@@ -193,7 +210,7 @@ namespace Scalizer
         }
 
         // Runs a terminal command that scales the display based upon user settings...
-        private void Scale_Display()
+        private void Scale_Display([CallerMemberName] string callerName = "")
         {
             DisplayConfig currentDisplayConfig;
             string? currentProfile;
@@ -208,6 +225,9 @@ namespace Scalizer
                 currentProfile = string.Empty;
             }
 
+            // List<string> displays = Retrieve_Display_Info();
+            Trace.WriteLine(callerName + " calling the Scale_Display() function.");
+
             for (int i = 0; i < jsonPaths.Count; i++)
             {
                 if (jsonPaths[i].Contains(currentProfile!))
@@ -218,10 +238,31 @@ namespace Scalizer
                     displayNumber = currentDisplayConfig.displayIndex;
                     displayScaling = currentDisplayConfig.dpiSetting;
 
+                    Trace.WriteLine("Executing... " + @".\Assets\SetDpi.exe" + " " + displayNumber + " " + displayScaling);
+
                     // Execute a Terminal command...
-                    TerminalHelper.execute(@".\Assets\SetDpi.exe" + " " + displayNumber + " " + displayScaling);
+                    TerminalHelper.execute(di.FullName + @"\Assets\SetDpi.exe" + " " + displayNumber + " " + displayScaling);
                 }
+
+                // if (displays.Count == 1) break;
             }
+        }
+
+        protected static List<string> Retrieve_Display_Info()
+        {
+            List<string> displays = new List<string>();
+
+            foreach (PathInfo pi in PathInfo.GetActivePaths())
+            {
+                if (!pi.TargetsInfo[0].DisplayTarget.IsAvailable) continue;
+
+                string currentValue = String.Format("{0}",
+                        string.IsNullOrEmpty(pi.TargetsInfo[0].DisplayTarget.FriendlyName) ? "Generic PnP Monitor" : pi.TargetsInfo[0].DisplayTarget.FriendlyName);
+
+                displays.Add(currentValue);
+            }
+
+            return displays;
         }
 
         private DisplayConfig Parse_Json_File(string path)
@@ -309,6 +350,7 @@ namespace Scalizer
         {
             config!.UpdateProperty("isExecute", "true");
 
+            Pause_SystemEvents_Observer();
             Scale_Display();
         }
 
@@ -353,6 +395,7 @@ namespace Scalizer
                         {
                             Debug.WriteLine($"Monitor {((int)wParam == DeviceNotification.DbtDeviceArrival ? "arrived" : "removed")}");
 
+                            Pause_SystemEvents_Observer();
                             Scale_Display();
                         }
 
@@ -365,14 +408,28 @@ namespace Scalizer
             return IntPtr.Zero;
         }
 
-        public void SystemEvents_DisplaySettingsChanged(object sender, EventArgs e)
-
+        private void Pause_SystemEvents_Observer()
         {
+            isAlwaysReactive = false;
 
-            Scale_Display();
+            // Asyncronously set the isAlwaysReactive variable back to true after ten seconds...
+            Task.Delay(new TimeSpan(0, 0, 10)).ContinueWith(o => { isAlwaysReactive = true; });
+        }
+
+        // TO DO: The code below causes infinite loop to occur. Fix it!
+        public void SystemEvents_DisplaySettingsChanged(object sender, EventArgs e)
+        {
+            // if (isAlwaysReactive)
+            // {
+            //     Scale_Display();
+            // }
 
         }
-    }
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
 
-    // TO DO: TRIGGER SCALING UPON DISPLAY SETTING CHANGE...
+            App.Current.Shutdown();
+        }
+    }
 }
