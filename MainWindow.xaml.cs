@@ -239,10 +239,8 @@ namespace Scalizer
                     displayNumber = currentDisplayConfig.displayIndex;
                     displayScaling = currentDisplayConfig.dpiSetting;
 
-                    Trace.WriteLine("Executing... " + @".\Assets\SetDpi.exe" + " " + displayNumber + " " + displayScaling);
-
                     // Execute a Terminal command...
-                    TerminalHelper.execute(di.FullName + @"\Assets\SetDpi.exe" + " " + displayNumber + " " + displayScaling);
+                    TerminalHelper.execute(@"cd " + di.FullName + " && " + @".\Assets\SetDpi.exe" + " " + displayNumber + " " + displayScaling);
                 }
 
                 // if (displays.Count == 1) break;

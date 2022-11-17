@@ -13,7 +13,7 @@ namespace Scalizer
         {
             var startInfo = new ProcessStartInfo
             {
-                FileName = "cmd.exe", // use cmd for example, you can run your own test.bat
+                FileName = "C:\\WINDOWS\\system32\\cmd.exe", // use cmd for example, you can run your own test.bat
                 Verb = "runas", // run as administrator
                 Arguments = "/C " + command,
                 CreateNoWindow = true,

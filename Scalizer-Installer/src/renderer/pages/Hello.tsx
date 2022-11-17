@@ -47,8 +47,8 @@ export default function Hello() {
           className="Hello-Button-Start"
           type="button"
           onClick={() => {
-            // This line executes the Scalizer-Alpha executable...
-            child(executablePath, (err: string) => {
+            // This line executes the Scalizer-Alpha executable... detached = true enables the sub-program to run independently...
+            child(executablePath, { detached: false }, (err: string) => {
               if (err) {
                 new Notification({
                   title: 'Unexpected Error Occured.',
