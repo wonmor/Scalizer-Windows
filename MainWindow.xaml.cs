@@ -394,8 +394,11 @@ namespace Scalizer
                         {
                             Debug.WriteLine($"Monitor {((int)wParam == DeviceNotification.DbtDeviceArrival ? "arrived" : "removed")}");
 
-                            Pause_SystemEvents_Observer();
-                            Scale_Display();
+                            if (isExecute == true)
+                            {
+                                Pause_SystemEvents_Observer();
+                                Scale_Display();
+                            }
                         }
 
                         if (DeviceNotification.IsUsbDevice(lParam))

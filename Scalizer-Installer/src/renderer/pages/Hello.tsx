@@ -1,12 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { Notification } from 'electron';
+import { shell } from 'electron';
 
 import fs from 'fs';
 import Footer from './Footer';
-
-const child = require('child_process').execFile;
 
 const executablePath =
   'C:\\Program Files\\Scalizer-Alpha\\net6.0-windows\\Scalizer.exe';
@@ -47,15 +45,8 @@ export default function Hello() {
           className="Hello-Button-Start"
           type="button"
           onClick={() => {
-            // This line executes the Scalizer-Alpha executable... detached = true enables the sub-program to run independently...
-            child(executablePath, { detached: false }, (err: string) => {
-              if (err) {
-                new Notification({
-                  title: 'Unexpected Error Occured.',
-                  body: err,
-                }).show();
-              }
-            });
+            // This line executes the Scalizer-Alpha executable...
+            shell.openPath(executablePath);
           }}
         >
           <span className="Glyph" role="img" aria-label="books">
