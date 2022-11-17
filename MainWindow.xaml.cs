@@ -41,7 +41,6 @@ using WindowsDisplayAPI.DisplayConfig;
  * 1. REMOVE THE TEMP. LINE -> REPLACE IT WITH A METHOD THAT ONLY SHUTS DOWN THE DISPLAY NOTIFICATION SYSTEM WHEN THE APP IS COMPLETELY CLOSED, NOT JUST WHEN MERELY THE WINDOW IS CLOSED...
  * 2. BUG FIX NEED TO BE MADE -> FIX THE CYCLE ERROR WHEN YOU MAKE A NEW PROFILE ON 2-DISPLAY SETUP WITH ONLY ONE DISPLAY PROFILE ACTIVE... (DUE TO ONLY DISPLAY ON CERTAIN MONITOR OPTION ON WINDOWS SETTINGS)
  * 3. FIX THE ISSUE WHEN AFTER CREATING NEW PROFILE, THE COMBOBOX SELECTED ITEM DOES NOT AUTOMATICALLY SELECT THE NEW ITEM...
- * 4. APP DOES NOT PROPERLY CLOSE UPON MAINWINDOW CLOSE EVENT
  */
 
 namespace Scalizer
@@ -394,7 +393,7 @@ namespace Scalizer
                         {
                             Debug.WriteLine($"Monitor {((int)wParam == DeviceNotification.DbtDeviceArrival ? "arrived" : "removed")}");
 
-                            if (isExecute == true)
+                            if (isEnabled.IsChecked == true)
                             {
                                 Pause_SystemEvents_Observer();
                                 Scale_Display();
