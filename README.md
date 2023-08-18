@@ -1,11 +1,13 @@
 # Scalizer for Windows 11
 
-### [Buy me a Coffee ☕](https://www.buymeacoffee.com/wonmor)
+```
+This package is deprecated. Do not download or install this software, as it is known to cause some OS-level bugs!
+```
 
 **Scalizer** automatically configures the Windows' UI scale on unsupported displays, such as Huawei's Mateview.
-It effectively *replaces* the default Windows' DPI scaling software. Served as an **Open-source** distribution; covered under the Apache 2.0 License.
+It effectively *replaces* the default Windows DPI scaling software. Served as an **Open-source** distribution; covered under the Apache 2.0 License.
 
-### [Download Alpha Build 0.1.0 ⬇️](https://github.com/wonmor/Scalizer-Windows/raw/main/Scalizer-Installer/release/Install%20Scalizer%20Setup%200.1.0.exe)
+### [Buy me a Coffee ☕](https://www.buymeacoffee.com/wonmor)
 
 ---
 
