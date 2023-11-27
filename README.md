@@ -1,7 +1,7 @@
 # Scalizer for Windows 11
 
 ```
-Go the 'Release' Tab to Download the Installer file.
+Go the 'Releases' Tab to Download the Installer file.
 ```
 
 **Scalizer** automatically configures the Windows' UI scale on unsupported displays, such as Huawei's Mateview.
